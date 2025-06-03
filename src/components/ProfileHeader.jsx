@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./ProfileHeader.css";
 import { Container, Row, Col, Card, Button, Image, Spinner, Alert } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { setProfile } from "../redux/store";
 
 function MyProfileCard() {
-  const [profile, setProfile] = useState(null);
+  const dispatch = useDispatch();
+  const profile = useSelector((state) => state.user.profile);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -22,7 +26,7 @@ function MyProfileCard() {
       }
 
       const data = await response.json();
-      setProfile(data);
+      dispatch(setProfile(data));
     } catch (err) {
       setError(err.message || "Errore sconosciuto");
     } finally {
@@ -42,6 +46,8 @@ function MyProfileCard() {
     );
 
   if (error) return <Alert variant="danger">{error}</Alert>;
+
+  if (!profile) return null;
 
   return (
     <Container>
