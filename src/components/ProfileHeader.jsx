@@ -87,7 +87,7 @@ function MyProfileCard() {
               </div>
             </Col>
 
-            <Col xs={12} md={11} className="text-center text-md-start mt-3 mt-md-0">
+            <Col xs={12} md={10} className="text-center text-md-start mt-3 mt-md-0">
               <h5 className="mb-1 fs-3">
                 {profile.name} {profile.surname}
               </h5>
@@ -117,7 +117,7 @@ function MyProfileCard() {
               </div>
             </Col>
 
-            <Col xs={12} md={1} className="d-flex justify-content-end align-items-start mt-3 mt-md-0">
+            <Col xs={12} md={2} className="d-flex justify-content-end align-items-start mt-3 mt-md-0">
               <Button variant="outline-secondary" size="sm" className="edit-button">
                 <i className="bi bi-pen fs-5"></i>
               </Button>
