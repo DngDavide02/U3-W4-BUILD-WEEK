@@ -84,19 +84,27 @@ const MySidebar = () => {
             (showAll ? profiles : profiles.slice(0, 3)).map((profile) => (
               <ListGroup.Item
                 key={profile._id}
-                className="sidebar-link suggested-profile-item"
+                className="sidebar-link suggested-profile-item d-flex align-items-center"
               >
                 <Image
                   src={profile.image}
                   roundedCircle
                   width={35}
                   height={35}
-                  className="suggested-profile-img"
+                  className="suggested-profile-img me-2"
                   alt={profile.name}
                 />
-                <span>
-                  {profile.name} {profile.surname}
-                </span>
+                <div>
+                  <div className="fw-bold">
+                    {profile.name} {profile.surname}
+                  </div>
+                  <div className="text-muted" style={{ fontSize: "0.85em" }}>
+                    {profile.title}
+                  </div>
+                  <div className="text-muted" style={{ fontSize: "0.85em" }}>
+                    {profile.area}
+                  </div>
+                </div>
               </ListGroup.Item>
             ))}
           <ListGroup.Item
