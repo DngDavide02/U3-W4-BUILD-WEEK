@@ -1,0 +1,16 @@
+.footer-link {
+  text-decoration: none;
+  color: #666;
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+.footer-link:hover {
+  color: #0a66c2;
+  text-decoration: underline;
+}
+.footer-spaced-links li {
+  margin-bottom: 14px;
+}
+footer {
+  background: #f3f2ef;
+}
