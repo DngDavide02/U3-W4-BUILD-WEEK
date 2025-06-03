@@ -1,12 +1,4 @@
-import React from "react";
-import {
-  Navbar,
-  Nav,
-  Form,
-  FormControl,
-  Button,
-  Container,
-} from "react-bootstrap";
+import { Navbar, Nav, Form, FormControl, Container } from "react-bootstrap";
 
 const MyNavBar = () => (
   <Navbar bg="light" expand="lg" className="shadow-sm py-0 navbar-linkedin">
@@ -19,11 +11,11 @@ const MyNavBar = () => (
           alt="LinkedIn"
         />
       </Navbar.Brand>
-      <Form className="d-flex me-3">
+      <Form className="d-flex me-4">
         <FormControl
           type="search"
           placeholder="Cerca"
-          className="me-2"
+          className="me-4"
           aria-label="Search"
         />
       </Form>
