@@ -99,3 +99,31 @@ body {
 .card-footer:hover {
   background-color: #f3f3f3;
 }
+
+/* Tabs style Interests Section */
+
+.custom-interest-tabs .nav-link {
+  border: none !important;
+  color: #404040;
+  font-weight: 600;
+  padding-bottom: 0.75rem;
+  margin-right: 1rem;
+  position: relative;
+  background-color: transparent !important;
+}
+
+.custom-interest-tabs .nav-link:hover {
+  color: #34383b;
+  background-color: #f3f3f3 !important;
+}
+
+.custom-interest-tabs .nav-link.active {
+  color: #198754 !important;
+  border-bottom: 2px solid #198754 !important;
+}
+
+.custom-interest-tabs .nav-link:focus,
+.custom-interest-tabs .nav-link:active {
+  outline: none;
+  box-shadow: none;
+}
