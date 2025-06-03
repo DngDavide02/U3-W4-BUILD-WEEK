@@ -73,7 +73,7 @@ function MyProfileCard() {
               </div>
             </Col>
 
-            <Col xs={12} md={9} className="text-center text-md-start mt-3 mt-md-0">
+            <Col xs={12} md={11} className="text-center text-md-start mt-3 mt-md-0">
               <h5 className="mb-1 fs-3">
                 {profile.name} {profile.surname}
               </h5>
@@ -87,23 +87,23 @@ function MyProfileCard() {
                 </a>
               </p>
 
-              <div className="d-flex flex-wrap flex-md-nowrap justify-content-center justify-content-md-start gap-2 overflow-auto">
-                <Button variant="outline-primary" size="sm" className="rounded-pill px-3">
+              <div className="d-flex flex-wrap flex-md-nowrap justify-content-center justify-content-md-start gap-1 overflow-auto">
+                <Button variant="outline-primary" size="sm" className="rounded-pill px-2">
                   Disponibile per
                 </Button>
-                <Button variant="outline-primary" size="sm" className="rounded-pill px-3">
+                <Button variant="outline-primary" size="sm" className="rounded-pill px-2">
                   Aggiungi sezione del profilo
                 </Button>
-                <Button variant="outline-primary" size="sm" className="rounded-pill px-3">
+                <Button variant="outline-primary" size="sm" className="rounded-pill px-2">
                   Migliora profilo
                 </Button>
-                <Button variant="outline-secondary" size="sm" className="rounded-pill px-3">
+                <Button variant="outline-secondary" size="sm" className="rounded-pill px-2">
                   Risorse
                 </Button>
               </div>
             </Col>
 
-            <Col xs={12} md={3} className="d-flex justify-content-end align-items-start mt-3 mt-md-0">
+            <Col xs={12} md={1} className="d-flex justify-content-end align-items-start mt-3 mt-md-0">
               <Button variant="outline-secondary" size="sm" className="edit-button">
                 <i className="bi bi-pen fs-5"></i>
               </Button>
