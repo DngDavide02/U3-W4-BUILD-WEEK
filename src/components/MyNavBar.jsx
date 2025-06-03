@@ -19,7 +19,7 @@ const MyNavBar = () => (
         <FormControl
           type="search"
           placeholder="Cerca"
-          className="me-4"
+          className="me-4 navbar-search-fixed"
           aria-label="Search"
         />
       </Form>
