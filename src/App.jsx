@@ -3,6 +3,7 @@ import MainContentSections from "./components/MainContent/MainContentSections";
 import MyNavBar from "./components/MyNavBar";
 import MySidebar from "./components/MySidebar";
 import ProfileHeader from "./components/ProfileHeader";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
           <MySidebar />
         </aside>
       </div>
+
+      <Footer />
     </>
   );
 }
