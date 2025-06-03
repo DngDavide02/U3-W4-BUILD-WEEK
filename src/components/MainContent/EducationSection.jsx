@@ -1,6 +1,6 @@
 import { Button, Card, Col, Container, Row, Image } from "react-bootstrap";
 import { ArrowRight, Pencil, Plus } from "react-bootstrap-icons";
-import epicodeLogo from "../../../public/images/epicode-logo.jpeg";
+import epicodeLogo from "/images/epicode-logo.jpeg";
 
 const EducationSection = () => {
   return (

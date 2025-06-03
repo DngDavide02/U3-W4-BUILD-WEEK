@@ -1,6 +1,6 @@
 import { Button, Card, Col, Container, Image, Row, Tab, Tabs } from "react-bootstrap";
 import { ArrowRight, CheckLg, PlusLg } from "react-bootstrap-icons";
-import epicodeLogo from "../../../public/images/epicode-logo.jpeg";
+import epicodeLogo from "/images/epicode-logo.jpeg";
 
 const InterestSection = () => {
   return (
