@@ -22,30 +22,29 @@
 
 .camera-button {
   z-index: 10;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 8px;
-  background-color: #fff;
+  background-color: #fff !important;
   transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .camera-button:hover {
-  background-color: #f1f1f1;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  background-color: #f1f1f1 !important;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15) !important;
 }
 
 .edit-button {
-  border: none;
-  background-color: transparent;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  font-size: 1.2rem;
-  display: flex;
+  border: none !important;
+  background-color: transparent !important;
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 50% !important;
+  display: flex !important;
   align-items: center;
   justify-content: center;
   color: black;
@@ -57,20 +56,25 @@
 }
 
 .edit-button:hover {
-  background-color: #e2e6ea;
-  color: black;
+  background-color: #e2e6ea !important;
+  color: black !important;
   transform: scale(1.05);
 }
 
 .profile-plus-button {
-  background-color: white;
-  border: 2px solid #0d6efd;
-  color: #0d6efd;
-  transition: all 0.2s ease;
+  background-color: white !important;
+  border: 2px solid #0d6efd !important;
+  color: #0d6efd !important;
+  border-radius: 50% !important;
+  width: 48px !important;
+  height: 48px !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
 }
 
 .profile-plus-button:hover {
-  background-color: rgba(255, 255, 255, 0.519);
+  background-color: rgba(255, 255, 255, 0.519) !important;
   border: 2px solid #0d6efd;
   color: #0d6efd;
 }
