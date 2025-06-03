@@ -16,9 +16,9 @@ function App() {
         }}
       >
         <main style={{ flex: "1 1 600px", maxWidth: "600px" }}>
-          {/* Contenuto principale */}
+          {/* Corpo principale */}
         </main>
-        <aside style={{ flex: "0 0 300px", marginLeft: "24px" }}>
+        <aside style={{ flex: "0 0 300px", marginLeft: "300px" }}>
           <MySidebar />
         </aside>
       </div>
