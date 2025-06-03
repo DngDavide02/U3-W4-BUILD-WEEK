@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./ProfileHeader.css";
-import {
-  Container,
-  Row,
-  Col,
-  Card,
-  Button,
-  Image,
-  Spinner,
-  Alert,
-} from "react-bootstrap";
+import { Container, Row, Col, Card, Button, Image, Spinner, Alert } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { setProfile } from "../redux/store";
 
 function MyProfileCard() {
-  const [profile, setProfile] = useState(null);
+  const dispatch = useDispatch();
+  const profile = useSelector((state) => state.user.profile);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -20,21 +15,18 @@ function MyProfileCard() {
 
   const fetchProfile = async () => {
     try {
-      const response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/profile/me",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch("https://striveschool-api.herokuapp.com/api/profile/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (!response.ok) {
         throw new Error("Errore nel recupero del profilo");
       }
 
       const data = await response.json();
-      setProfile(data);
+      dispatch(setProfile(data));
     } catch (err) {
       setError(err.message || "Errore sconosciuto");
     } finally {
@@ -55,6 +47,8 @@ function MyProfileCard() {
 
   if (error) return <Alert variant="danger">{error}</Alert>;
 
+  if (!profile) return null;
+
   return (
     <Container>
       <Card className="shadow-sm rounded position-relative">
@@ -65,19 +59,13 @@ function MyProfileCard() {
           }}
         ></div>
 
-        <Button
-          variant="light"
-          className="position-absolute top-0 end-0 m-2 p-2 shadow-sm d-flex align-items-center justify-content-center camera-button"
-        >
+        <Button variant="light" className="position-absolute top-0 end-0 m-2 p-2 shadow-sm d-flex align-items-center justify-content-center camera-button">
           <i className="bi bi-camera-fill text-primary fs-5"></i>
         </Button>
 
         <Card.Body className="pt-5 px-3 px-md-4">
           <Row>
-            <Col
-              xs={12}
-              className="text-center text-md-start pb-3 d-flex justify-content-center justify-content-md-start"
-            >
+            <Col xs={12} className="text-center text-md-start pb-3 d-flex justify-content-center justify-content-md-start">
               <div style={{ marginTop: "-150px" }}>
                 <Image
                   src={profile.image}
@@ -91,11 +79,7 @@ function MyProfileCard() {
               </div>
             </Col>
 
-            <Col
-              xs={12}
-              md={11}
-              className="text-center text-md-start mt-3 mt-md-0"
-            >
+            <Col xs={12} md={11} className="text-center text-md-start mt-3 mt-md-0">
               <h5 className="mb-1 fs-3">
                 {profile.name} {profile.surname}
               </h5>
@@ -104,56 +88,29 @@ function MyProfileCard() {
 
               <p className="text-muted mb-2">
                 {profile.area} -{" "}
-                <a
-                  href="#"
-                  className="text-primary link-no-underline fw-semibold"
-                >
+                <a href="#" className="text-primary link-no-underline fw-semibold">
                   Informazioni di contatto
                 </a>
               </p>
 
               <div className="d-flex flex-wrap flex-md-nowrap justify-content-center justify-content-md-start gap-1 overflow-auto">
-                <Button
-                  variant="outline-primary"
-                  size="sm"
-                  className="rounded-pill px-2"
-                >
+                <Button variant="outline-primary" size="sm" className="rounded-pill px-2">
                   Disponibile per
                 </Button>
-                <Button
-                  variant="outline-primary"
-                  size="sm"
-                  className="rounded-pill px-2"
-                >
+                <Button variant="outline-primary" size="sm" className="rounded-pill px-2">
                   Aggiungi sezione del profilo
                 </Button>
-                <Button
-                  variant="outline-primary"
-                  size="sm"
-                  className="rounded-pill px-2"
-                >
+                <Button variant="outline-primary" size="sm" className="rounded-pill px-2">
                   Migliora profilo
                 </Button>
-                <Button
-                  variant="outline-secondary"
-                  size="sm"
-                  className="rounded-pill px-2"
-                >
+                <Button variant="outline-secondary" size="sm" className="rounded-pill px-2">
                   Risorse
                 </Button>
               </div>
             </Col>
 
-            <Col
-              xs={12}
-              md={1}
-              className="d-flex justify-content-end align-items-start mt-3 mt-md-0"
-            >
-              <Button
-                variant="outline-secondary"
-                size="sm"
-                className="edit-button"
-              >
+            <Col xs={12} md={1} className="d-flex justify-content-end align-items-start mt-3 mt-md-0">
+              <Button variant="outline-secondary" size="sm" className="edit-button">
                 <i className="bi bi-pen fs-5"></i>
               </Button>
             </Col>
