@@ -3,7 +3,7 @@ import "./Footer.css";
 
 const LinkedinFooter = () => {
   return (
-    <footer className="text-secondary small fw-normal py-4 mt-auto">
+    <footer className="text-secondary small fw-normal py-5 mt-auto ">
       <div className="container" style={{ maxWidth: "1128px", margin: "0 auto", marginBottom: "2.4rem" }}>
         <div className="row gy-4">
           <div className="col-12 col-md-2">
