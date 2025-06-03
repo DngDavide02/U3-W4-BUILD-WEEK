@@ -1,7 +1,12 @@
 import "./App.css";
+import ProfileHeader from "./components/ProfileHeader";
 
 function App() {
-  return <></>;
+  return (
+    <>
+      <ProfileHeader />
+    </>
+  );
 }
 
 export default App;
