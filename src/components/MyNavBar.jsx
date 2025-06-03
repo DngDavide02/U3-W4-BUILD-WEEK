@@ -52,7 +52,7 @@ const MyNavBar = () => {
             </Nav.Link>
             <Nav.Link href="#">
               <img
-                src={profile?.image || "https://via.placeholder.com/28"}
+                src={profile?.image}
                 alt="profile"
                 width="28"
                 height="28"

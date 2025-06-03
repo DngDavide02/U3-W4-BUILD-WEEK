@@ -77,6 +77,14 @@ const MySidebar = () => {
               <ListGroup.Item
                 key={profile._id}
                 className="sidebar-link suggested-profile-item d-flex align-items-center"
+                style={{ cursor: "pointer" }}
+                onClick={() =>
+                  window.open(
+                    `https://www.linkedin.com/in/${profile.username}`,
+                    "_blank",
+                    "noopener,noreferrer"
+                  )
+                }
               >
                 <Image
                   src={profile.image}
