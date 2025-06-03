@@ -8,7 +8,9 @@ function App() {
     <>
       <MyNavBar />
       <div className="app-main-container">
-        <main className="flex-grow-1 app-main-content">{/* Corpo principale */}</main>
+        <main className="flex-grow-1 app-main-content">
+          <ProfileHeader />
+        </main>
         <aside className="ms-4 d-none d-md-block app-sidebar">
           <MySidebar />
         </aside>

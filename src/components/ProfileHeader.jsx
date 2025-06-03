@@ -44,7 +44,7 @@ function MyProfileCard() {
   if (error) return <Alert variant="danger">{error}</Alert>;
 
   return (
-    <Container className="my-4">
+    <Container>
       <Card className="shadow-sm rounded position-relative">
         <div
           className="card-header-image"
