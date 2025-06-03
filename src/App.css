@@ -61,12 +61,12 @@
 }
 /* cards-main-sections */
 .card-footer {
-  background-color: white;
-  color: #404040;
+  background-color: white !important;
+  color: #404040 !important;
 }
 
 .card-footer:hover {
-  background-color: #f3f3f3;
+  background-color: #f3f3f3 !important;
 }
 
 .suggested-profile-item {
