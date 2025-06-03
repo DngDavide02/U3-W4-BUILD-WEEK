@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./ProfileHeader.css";
 import { Container, Row, Col, Card, Button, Image, Spinner, Alert, Modal, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,6 +18,7 @@ function MyProfileCard() {
     area: "",
   });
 
+  const fileInputRef = useRef(null);
   const token = import.meta.env.VITE_TOKEN;
 
   const fetchProfile = async () => {
@@ -83,6 +84,35 @@ function MyProfileCard() {
     }
   };
 
+  const handleImageUpload = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("profile", file);
+
+    try {
+      const response = await fetch("https://striveschool-api.herokuapp.com/api/profile/me/picture", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Errore upload: ${response.status} - ${errorText}`);
+      }
+
+      console.log("Upload completato con successo");
+      fetchProfile();
+    } catch (err) {
+      console.error("Errore durante l'upload:", err);
+      alert("Errore durante il caricamento dell'immagine:\n" + err.message);
+    }
+  };
+
   if (loading)
     return (
       <div className="d-flex justify-content-center my-5">
@@ -133,9 +163,12 @@ function MyProfileCard() {
                       bottom: "0px",
                       right: "0px",
                     }}
+                    onClick={() => fileInputRef.current.click()}
                   >
                     +
                   </Button>
+
+                  <input type="file" accept="image/*" style={{ display: "none" }} ref={fileInputRef} onChange={handleImageUpload} />
                 </div>
               </Col>
 
