@@ -66,6 +66,7 @@ body {
 
 .card-footer {
   background-color: white;
+  color: #404040;
 }
 
 .card-footer:hover {
