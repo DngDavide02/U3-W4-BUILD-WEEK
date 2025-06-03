@@ -1,7 +1,11 @@
 import { Navbar, Nav, Form, FormControl, Container } from "react-bootstrap";
 
 const MyNavBar = () => (
-  <Navbar bg="light" expand="lg" className="shadow-sm py-0 navbar-linkedin">
+  <Navbar
+    bg="light"
+    expand="lg"
+    className="shadow-sm py-0 navbar-linkedin sticky-top"
+  >
     <Container>
       <Navbar.Brand href="#">
         <img

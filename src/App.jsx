@@ -10,7 +10,7 @@ function App() {
         <main className="flex-grow-1 app-main-content">
           {/* Corpo principale */}
         </main>
-        <aside className="ms-4 d-none d-md-block app-sidebar">
+        <aside className="ms-4 d-none d-lg-block app-sidebar">
           <MySidebar />
         </aside>
       </div>
