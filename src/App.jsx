@@ -1,4 +1,5 @@
 import "./App.css";
+import AboutSection from "./components/MainContent/AboutSection";
 import AnalyticsSection from "./components/MainContent/AnalyticsSection";
 import MyNavBar from "./components/MyNavBar";
 import MySidebar from "./components/MySidebar";
@@ -12,6 +13,7 @@ function App() {
         <main className="flex-grow-1 app-main-content">
           <ProfileHeader />
           <AnalyticsSection />
+          <AboutSection />
         </main>
         <aside className="ms-4 d-none d-lg-block app-sidebar">
           <MySidebar />
