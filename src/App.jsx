@@ -1,6 +1,7 @@
 import "./App.css";
 import MyNavBar from "./components/MyNavBar";
 import MySidebar from "./components/MySidebar";
+import ProfileHeader from "./components/ProfileHeader";
 
 function App() {
   return (
@@ -15,7 +16,9 @@ function App() {
           paddingTop: "32px",
         }}
       >
-        <main style={{ flex: "1 1 600px", maxWidth: "600px" }}>{/* Contenuto principale */}</main>
+        <main style={{ flex: "1 1 600px", maxWidth: "600px" }}>
+          <ProfileHeader />
+        </main>
         <aside style={{ flex: "0 0 300px", marginLeft: "24px" }}>
           <MySidebar />
         </aside>
