@@ -80,7 +80,7 @@ const MySidebar = () => {
                 style={{ cursor: "pointer" }}
                 onClick={() =>
                   window.open(
-                    `https://www.linkedin.com/in/${profile.username}`,
+                    `https://striveschool-api.herokuapp.com/api/profile/${profile._id}`,
                     "_blank",
                     "noopener,noreferrer"
                   )
