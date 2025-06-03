@@ -59,3 +59,15 @@
 .app-sidebar {
   width: 300px;
 }
+
+body {
+  background-color: #f4f2ee;
+}
+
+.card-footer {
+  background-color: white;
+}
+
+.card-footer:hover {
+  background-color: #f3f3f3;
+}
