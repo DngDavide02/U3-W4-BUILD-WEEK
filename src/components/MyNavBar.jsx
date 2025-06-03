@@ -25,7 +25,6 @@ const MyNavBar = () => (
           placeholder="Cerca"
           className="me-2"
           aria-label="Search"
-          style={{ backgroundColor: "#eef3f8", borderRadius: "5px" }}
         />
       </Form>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -33,33 +32,33 @@ const MyNavBar = () => (
         <Nav className="me-auto align-items-center">
           <Nav.Link href="#">
             <i className="bi bi-house-door-fill"></i>
-            <div style={{ fontSize: "12px" }}>Home</div>
+            <div className="nav-link-label">Home</div>
           </Nav.Link>
           <Nav.Link href="#">
             <i className="bi bi-people-fill"></i>
-            <div style={{ fontSize: "12px" }}>Rete</div>
+            <div className="nav-link-label">Rete</div>
           </Nav.Link>
           <Nav.Link href="#">
             <i className="bi bi-briefcase-fill"></i>
-            <div style={{ fontSize: "12px" }}>Lavoro</div>
+            <div className="nav-link-label">Lavoro</div>
           </Nav.Link>
           <Nav.Link href="#">
             <i className="bi bi-chat-dots-fill"></i>
-            <div style={{ fontSize: "12px" }}>Messaggistica</div>
+            <div className="nav-link-label">Messaggistica</div>
           </Nav.Link>
           <Nav.Link href="#">
             <i className="bi bi-bell-fill"></i>
-            <div style={{ fontSize: "12px" }}>Notifiche</div>
+            <div className="nav-link-label">Notifiche</div>
           </Nav.Link>
           <Nav.Link href="#">
             <img
-              src="https://randomuser.me/api/portraits/men/32.jpg"
+              src="https://preview.redd.it/what-is-the-armor-set-the-tarnished-is-wearing-in-the-game-v0-eyt9w6lfzhy81.jpg?width=640&crop=smart&auto=webp&s=6f757a5c6241ff3d9d997a081da258bb1290bc77"
               alt="profile"
-              width="24"
-              height="24"
+              width="30"
+              height="30"
               className="rounded-circle"
             />
-            <div style={{ fontSize: "12px" }}>
+            <div className="nav-link-label">
               Tu <i className="bi bi-caret-down-fill"></i>
             </div>
           </Nav.Link>
