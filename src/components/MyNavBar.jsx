@@ -1,7 +1,11 @@
 import { Navbar, Nav, Form, FormControl, Container } from "react-bootstrap";
 
 const MyNavBar = () => (
-  <Navbar bg="light" expand="lg" className="shadow-sm py-0 navbar-linkedin">
+  <Navbar
+    bg="light"
+    expand="lg"
+    className="shadow-sm py-0 navbar-linkedin sticky-top"
+  >
     <Container>
       <Navbar.Brand href="#">
         <img
@@ -15,7 +19,7 @@ const MyNavBar = () => (
         <FormControl
           type="search"
           placeholder="Cerca"
-          className="me-4"
+          className="me-4 navbar-search-fixed"
           aria-label="Search"
         />
       </Form>

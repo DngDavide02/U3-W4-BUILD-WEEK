@@ -57,7 +57,38 @@
 }
 
 .app-sidebar {
-  width: 300px;
+  width: 280px;
+}
+
+body {
+  background-color: #f4f2ee;
+}
+
+.card-footer {
+  background-color: white;
+}
+
+.card-footer:hover {
+  background-color: #f3f3f3;
+}
+
+.suggested-profile-item {
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.suggested-profile-img {
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+@media (min-width: 992px) {
+  .navbar-search-fixed {
+    width: 210px !important;
+    min-width: 0;
+    max-width: none;
+  }
 }
 
 body {

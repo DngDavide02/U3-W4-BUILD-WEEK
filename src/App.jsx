@@ -13,7 +13,7 @@ function App() {
           <ProfileHeader />
           <AnalyticsSection />
         </main>
-        <aside className="ms-4 d-none d-md-block app-sidebar">
+        <aside className="ms-4 d-none d-lg-block app-sidebar">
           <MySidebar />
         </aside>
       </div>
