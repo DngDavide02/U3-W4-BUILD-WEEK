@@ -44,7 +44,7 @@ function MyProfileCard() {
   if (error) return <Alert variant="danger">{error}</Alert>;
 
   return (
-    <Container>
+    <Container className="mb-2">
       <Card className="shadow-sm rounded position-relative">
         <div
           className="card-header-image"
@@ -60,16 +60,30 @@ function MyProfileCard() {
         <Card.Body className="pt-5 px-3 px-md-4">
           <Row>
             <Col xs={12} className="text-center text-md-start pb-3 d-flex justify-content-center justify-content-md-start">
-              <div style={{ marginTop: "-150px" }}>
+              <div style={{ marginTop: "-150px", position: "relative", width: "160px", height: "160px" }}>
                 <Image
                   src={profile.image}
                   roundedCircle
                   style={{
-                    width: "160px",
-                    height: "160px",
+                    width: "100%",
+                    height: "100%",
                     objectFit: "cover",
                   }}
                 />
+
+                <Button
+                  variant="light"
+                  className="position-absolute d-flex align-items-center justify-content-center rounded-circle shadow profile-plus-button"
+                  style={{
+                    width: "50px",
+                    height: "50px",
+                    fontSize: "30px",
+                    bottom: "0px",
+                    right: "0px",
+                  }}
+                >
+                  +
+                </Button>
               </div>
             </Col>
 
