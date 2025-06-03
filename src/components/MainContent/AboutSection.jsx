@@ -6,14 +6,14 @@ const AboutSection = () => {
     <Container>
       <Row>
         <Col>
-          <Card className="mb-4 shadow-sm">
+          <Card className="mb-2 px-2">
             <Card.Body>
-              <div className="d-flex justify-content-between align-items-start mb-3">
+              <div className="d-flex justify-content-between mb-3">
                 <Card.Title as="h2" className="h5 fw-bold mb-0">
                   Informazioni
                 </Card.Title>
 
-                <a href="#" className="text-muted" aria-label="Modifica la sezione Informazioni">
+                <a href="#" className="text-dark" aria-label="Modifica la sezione Informazioni">
                   <Pencil size={20} />
                 </a>
               </div>
