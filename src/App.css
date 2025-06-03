@@ -1,0 +1,15 @@
+.navbar-linkedin .nav-link {
+  padding-left: 40px !important;
+  padding-right: 40px !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navbar-linkedin .form-control {
+  background-color: #dedede;
+}
+
+.navbar-linkedin .nav-link-label {
+  font-size: 15px;
+}

@@ -1,10 +1,25 @@
 import "./App.css";
-import ProfileHeader from "./components/ProfileHeader";
+import MyNavBar from "./components/MyNavBar";
+import MySidebar from "./components/MySidebar";
 
 function App() {
   return (
     <>
-      <ProfileHeader />
+      <MyNavBar />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          background: "#f3f2ef",
+          minHeight: "100vh",
+          paddingTop: "32px",
+        }}
+      >
+        <main style={{ flex: "1 1 600px", maxWidth: "600px" }}>{/* Contenuto principale */}</main>
+        <aside style={{ flex: "0 0 300px", marginLeft: "24px" }}>
+          <MySidebar />
+        </aside>
+      </div>
     </>
   );
 }
