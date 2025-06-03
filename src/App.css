@@ -43,3 +43,19 @@
   font-size: 1rem;
   color: #636161 !important;
 }
+
+.app-main-container {
+  display: flex;
+  justify-content: center;
+  background: #f3f2ef;
+  min-height: 100vh;
+  padding-top: 35px;
+}
+
+.app-main-content {
+  max-width: 700px;
+}
+
+.app-sidebar {
+  width: 300px;
+}
