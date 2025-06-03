@@ -125,7 +125,7 @@ function MyProfileCard() {
 
             <Col xs={12} md={2} className="d-flex justify-content-end align-items-start mt-3 mt-md-0">
               <Button variant="outline-secondary" size="sm" className="edit-button">
-                <i className="bi bi-pen fs-5"></i>
+                <i className="bi bi-pencil fs-5"></i>
               </Button>
             </Col>
           </Row>
