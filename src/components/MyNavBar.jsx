@@ -46,8 +46,8 @@ const MyNavBar = () => (
             <img
               src="https://preview.redd.it/what-is-the-armor-set-the-tarnished-is-wearing-in-the-game-v0-eyt9w6lfzhy81.jpg?width=640&crop=smart&auto=webp&s=6f757a5c6241ff3d9d997a081da258bb1290bc77"
               alt="profile"
-              width="30"
-              height="30"
+              width="28"
+              height="28"
               className="rounded-circle"
             />
             <div className="nav-link-label">
