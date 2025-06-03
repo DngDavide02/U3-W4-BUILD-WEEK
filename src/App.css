@@ -13,3 +13,49 @@
 .navbar-linkedin .nav-link-label {
   font-size: 15px;
 }
+
+.sidebar-card {
+  margin-bottom: 1rem;
+}
+
+.sidebar-link {
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.sidebar-link-eventi {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar-add-btn {
+  float: right;
+  color: #196cc0 !important;
+  text-decoration: none !important;
+  padding: 0;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.sidebar-discover-btn {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #636161 !important;
+}
+
+.app-main-container {
+  display: flex;
+  justify-content: center;
+  background: #f3f2ef;
+  min-height: 100vh;
+  padding-top: 35px;
+}
+
+.app-main-content {
+  max-width: 700px;
+}
+
+.app-sidebar {
+  width: 300px;
+}

@@ -1,48 +1,44 @@
-import { Card, Button, ListGroup } from "react-bootstrap";
+import { Card, ListGroup } from "react-bootstrap";
 
-const MySideBar = () => (
+const MySidebar = () => (
   <aside className="sidebar-linkedin">
-    <Card className="mb-2">
+    <Card className="mb-2 sidebar-card">
       <ListGroup variant="flush">
-        <ListGroup.Item action href="#" className="sidebar-link">
-          <span className="fw-bold">Gruppi</span>
+        <ListGroup.Item
+          action
+          href="#"
+          className="sidebar-link d-flex justify-content-between align-items-center"
+        >
+          <span className="fw-bold">Lingua del Profilo</span>
+          <i className="bi bi-pencil" style={{ cursor: "pointer" }}></i>
         </ListGroup.Item>
-        <ListGroup.Item action href="#" className="sidebar-link">
-          <span className="fw-bold">Eventi</span>
-          <Button
-            variant="link"
-            size="sm"
-            style={{ float: "right", color: "#0a66c2", textDecoration: "none" }}
-          >
-            +
-          </Button>
+        <ListGroup.Item
+          action
+          href="#"
+          className="sidebar-link sidebar-link-eventi d-flex justify-content-between align-items-center"
+        >
+          <span className="fw-bold">Profilo pubblico e URL</span>
+          <div className="d-flex align-items-center">
+            <i className="bi bi-pencil ms-2" style={{ cursor: "pointer" }}></i>
+          </div>
         </ListGroup.Item>
+      </ListGroup>
+    </Card>
+    <Card className="mb-1 sidebar-card">
+      <ListGroup variant="flush">
         <ListGroup.Item action href="#" className="sidebar-link">
           <span className="fw-bold">Hashtag seguiti</span>
         </ListGroup.Item>
-      </ListGroup>
-      <Card.Body className="p-2">
-        <Button
-          variant="light"
-          className="w-100 text-secondary"
-          style={{ fontWeight: 500, fontSize: "0.95rem" }}
-        >
-          Scopri di più
-        </Button>
-      </Card.Body>
-    </Card>
-    <Card>
-      <ListGroup variant="flush">
         <ListGroup.Item
           action
           href="#"
           className="sidebar-link text-center text-primary"
         >
-          Scopri di più su LinkedIn
+          Mostra tutto
         </ListGroup.Item>
       </ListGroup>
     </Card>
   </aside>
 );
 
-export default MySideBar;
+export default MySidebar;

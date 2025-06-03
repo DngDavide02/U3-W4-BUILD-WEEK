@@ -7,19 +7,9 @@ function App() {
   return (
     <>
       <MyNavBar />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          background: "#f3f2ef",
-          minHeight: "100vh",
-          paddingTop: "32px",
-        }}
-      >
-        <main style={{ flex: "1 1 600px", maxWidth: "600px" }}>
-          <ProfileHeader />
-        </main>
-        <aside style={{ flex: "0 0 300px", marginLeft: "24px" }}>
+      <div className="app-main-container">
+        <main className="flex-grow-1 app-main-content">{/* Corpo principale */}</main>
+        <aside className="ms-4 d-none d-md-block app-sidebar">
           <MySidebar />
         </aside>
       </div>
