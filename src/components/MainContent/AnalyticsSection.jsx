@@ -7,7 +7,7 @@ const AnalyticsSection = () => {
     <Container>
       <Row>
         <Col>
-          <Card className="mb-4 shadow-sm">
+          <Card className="mb-2 px-2">
             <Card.Body>
               <Card.Title as="h2" className="h5 fw-bold mb-0">
                 Analisi
