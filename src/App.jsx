@@ -28,7 +28,6 @@ function App() {
                     <LeftBar />
                   </Col>
                   <Col xs={12} lg={7} className="px-2">
-                    <CreatePostCard token={import.meta.env.VITE_TOKEN} />
                     <MainContent />
                   </Col>
                   <Col xs={3} className="px-2 d-none d-lg-block">
