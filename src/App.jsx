@@ -9,6 +9,7 @@ import ActivitySection from "./components/MainContent/ActivitySection";
 import AnalyticsSection from "./components/MainContent/AnalyticsSection";
 import { Col, Container, Row } from "react-bootstrap";
 import { Routes, Route } from "react-router-dom";
+import MainContent from "./components/Homepage/MainContentHome";
 
 function App() {
   return (
@@ -23,6 +24,9 @@ function App() {
                 <Row>
                   <Col xs={3} className="px-2">
                     <LeftBar />
+                  </Col>
+                  <Col xs={7} className="px-2">
+                    <MainContent />
                   </Col>
                 </Row>
               </Container>
