@@ -1,4 +1,5 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import experienceReducer from "../reducers/experienceSlice";
 
 const initialUserState = { profile: null };
 function userReducer(state = initialUserState, action) {
@@ -12,15 +13,16 @@ function userReducer(state = initialUserState, action) {
 
 const rootReducer = combineReducers({
   user: userReducer,
+  experience: experienceReducer
 });
 
 const store = configureStore({
-  reducer: rootReducer,
+  reducer: rootReducer
 });
 
 export default store;
 
 export const setProfile = (profile) => ({
   type: "SET_PROFILE",
-  payload: profile,
+  payload: profile
 });
