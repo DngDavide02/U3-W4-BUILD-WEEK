@@ -1,7 +1,26 @@
+import { useState } from "react";
+import ExperienceModal from "./ExperienceModal";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
-import { ArrowRight, Pencil, Plus } from "react-bootstrap-icons";
+import { Pencil, Plus } from "react-bootstrap-icons";
 
 const ExperienceSection = () => {
+  const [showModal, setShowModal] = useState(false);
+  /*   const [experiences, setExperiences] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [experienceToEdit, setExperienceToEdit] = useState(null); */
+  /* 
+const fetchExperience = () => {
+  setIsLoading(true);
+  setError(null);
+  try {
+    const resp = await fetch()
+  }
+} */
+
+  const handleShowModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
+
   return (
     <Container>
       <Row>
@@ -16,12 +35,12 @@ const ExperienceSection = () => {
                 </div>
 
                 <div>
-                  <Button className="p-0 me-3 bg-transparent border-0 text-dark">
+                  <Button variant="link" className="p-0 me-3 bg-transparent border-0 text-dark" onClick={handleShowModal}>
                     <Plus size={34} />
                   </Button>
-                  <a href="#" className="text-dark" aria-label="Modifica la sezione Attività">
+                  <Button variant="link" className="p-0 text-dark" onClick={handleShowModal} aria-label="Modifica la sezione Esperienza">
                     <Pencil size={20} />
-                  </a>
+                  </Button>
                 </div>
               </div>
               <p className="mb-0 fw-semibold">Non hai ancora aggiunto nulla su Esperienza</p>
@@ -30,6 +49,12 @@ const ExperienceSection = () => {
           </Card>
         </Col>
       </Row>
+      <ExperienceModal
+        show={showModal}
+        handleClose={handleCloseModal}
+        // experienceToEdit={experienceToEdit} // to add later
+        // onExperienceSaved={handleExperienceSaved} // to add later
+      />
     </Container>
   );
 };
