@@ -31,7 +31,7 @@ const RightSide = () => {
             <Card.Title className="card-title my-0">Multato un cartello del food delivery</Card.Title>
             <Card.Text className="small">1 giorno fa 760 lettori</Card.Text>
           </div>
-          <Button variant="link" className="text-muted p-0 mt-2" style={{ fontSize: "0.9rem" }}>
+          <Button variant="home" className="text-muted p-0 mt-2" style={{ fontSize: "0.9rem" }}>
             Mostra di più <i class="bi bi-chevron-compact-down"></i>
           </Button>
           <div className="rompicapo-row">
@@ -62,6 +62,51 @@ const RightSide = () => {
           <div className="text-center text-muted lastest">Prova LinkedIn sull'app per Windows </div>
         </div>
       </Card>
+      <footer className=" small  py-2  mb-2  col-md-6 offset-md-8" style={{ maxWidth: " 300px" }}>
+        <ul className="list-unstyled footer-spaced-links text-muted">
+          <li>
+            <a href="#" className="footer-home">
+              Informazioni
+            </a>
+            <a href="#" className="footer-home">
+              Accessibilità
+            </a>
+          </li>
+          <li>
+            <a href="#" className="footer-home">
+              Centro assistenza
+            </a>
+            <a href="#" className="footer-home">
+              Privacy e condizioni <i class="bi bi-caret-down-fill"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#" className="footer-home">
+              Opzioni per gli annunci pubblicitari
+            </a>
+          </li>
+          <li>
+            <a href="#" className="footer-home">
+              Pubblicità
+            </a>
+            <a href="#" className="footer-home">
+              Servizi alle aziende <i class="bi bi-caret-down-fill"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#" className="footer-home">
+              Scarica l’app LinkedIn
+            </a>
+            <a href="#" className="footer-home">
+              Altro
+            </a>
+          </li>
+        </ul>
+        <div className="text-start text-muted small mt-3">
+          <img src="https://static.licdn.com/aero-v1/sc/h/aahlc8ivbnmk0t3eyz8as5gvr" alt="" />
+          LinkedIn Corporation © {new Date().getFullYear()}
+        </div>
+      </footer>
     </>
   );
 };

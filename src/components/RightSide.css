@@ -27,3 +27,17 @@
   align-items: center;
   gap: 12px;
 }
+.footer-home {
+  padding-left: 20px;
+  text-decoration: none;
+  color: #666;
+  font-weight: 400;
+  font-size: 0.8rem;
+}
+.footer-home:hover {
+  color: #0a66c2;
+  text-decoration: underline;
+}
+li {
+  margin-bottom: 8px;
+}
