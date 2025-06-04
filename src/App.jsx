@@ -22,10 +22,10 @@ function App() {
               <MyNavBar />
               <Container className="mt-4 container">
                 <Row>
-                  <Col xs={3} className="px-2">
+                  <Col xs={3} className="px-2 d-none d-lg-block">
                     <LeftBar />
                   </Col>
-                  <Col xs={7} className="px-2">
+                  <Col xs={12} lg={7} className="px-2">
                     <MainContent />
                   </Col>
                 </Row>
@@ -40,13 +40,13 @@ function App() {
               <MyNavBar />
               <Container className="mt-4 container">
                 <Row>
-                  <Col xs={8}>
+                  <Col xs={12} lg={8}>
                     <ProfileHeader />
                     <AnalyticsSection />
                     <ActivitySection />
                     <AboutSection />
                   </Col>
-                  <Col xs={4}>
+                  <Col lg={4} className="d-none d-lg-block">
                     <MySidebar />
                   </Col>
                 </Row>
