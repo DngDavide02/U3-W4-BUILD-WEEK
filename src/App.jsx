@@ -22,13 +22,13 @@ function App() {
               <MyNavBar />
               <Container className="mt-4 container">
                 <Row>
-                  <Col xs={3} className="px-2 d-none d-lg-block">
+                  <Col xs={2} className="px-2 d-none d-lg-block">
                     <LeftBar />
                   </Col>
                   <Col xs={12} lg={7} className="px-2">
                     <MainContent />
                   </Col>
-                  <Col>
+                  <Col xs={3} className="px-2 d-none d-lg-block">
                     <RightSide />
                   </Col>
                 </Row>
