@@ -4,6 +4,7 @@ import { ArrowRight, Pencil } from "react-bootstrap-icons";
 
 const ActivitySection = () => {
   const [userId, setUserId] = useState(null);
+  const [userName, setUserName] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -29,6 +30,7 @@ const ActivitySection = () => {
 
         const profile = await response.json();
         setUserId(profile._id);
+        setUserName(`${profile.name} ${profile.surname}`);
       } catch (err) {
         console.error("Errore nel fetch del profilo:", err);
         setError("Impossibile ottenere l'ID utente.");
@@ -189,14 +191,17 @@ const ActivitySection = () => {
           {lastExperience && (
             <Card className="mb-2">
               <Card.Body>
-                <Card.Text>
-                  <strong>Contenuto:</strong> {lastExperience.description}
-                </Card.Text>
-                <Card.Text>
-                  <strong>Data:</strong> {lastExperience.startDate.slice(0, 10)}
-                </Card.Text>
+                <div className="d-flex justify-content-between">
+                  <span className="fw-semibold fs-4">{userName || "Nome non disponibile"}</span>
+                  <span className="text-muted small">{new Date(lastExperience.startDate).toLocaleDateString()}</span>
+                </div>
+
+                <div className="mt-2">
+                  <Card.Text>{lastExperience.description}</Card.Text>
+                </div>
+
                 {lastExperience.image && (
-                  <div className="mt-2">
+                  <div className="mt-3 text-center">
                     <img src={lastExperience.image} alt="Esperienza" style={{ maxWidth: "100%", borderRadius: "8px" }} />
                   </div>
                 )}
