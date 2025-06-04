@@ -10,7 +10,7 @@ import AnalyticsSection from "./components/MainContent/AnalyticsSection";
 import { Col, Container, Row } from "react-bootstrap";
 import { Routes, Route } from "react-router-dom";
 import MainContent from "./components/Homepage/MainContentHome";
-
+import RightSide from "./components/RightSide";
 function App() {
   return (
     <>
@@ -27,6 +27,9 @@ function App() {
                   </Col>
                   <Col xs={12} lg={7} className="px-2">
                     <MainContent />
+                  </Col>
+                  <Col>
+                    <RightSide />
                   </Col>
                 </Row>
               </Container>
