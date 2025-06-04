@@ -9,59 +9,51 @@ const ActivitySection = () => {
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
-  const [lastExperience, setLastExperience] = useState(null);
+  const [lastPost, setLastPost] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [postContent, setPostContent] = useState("");
 
   const token = import.meta.env.VITE_TOKEN;
 
   useEffect(() => {
-    const fetchUserId = async () => {
+    const fetchUserData = async () => {
       try {
         const response = await fetch("https://striveschool-api.herokuapp.com/api/profile/me", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         });
 
-        if (!response.ok) {
-          throw new Error("Errore nel recupero del profilo");
-        }
+        if (!response.ok) throw new Error("Errore nel recupero del profilo");
 
         const profile = await response.json();
         setUserId(profile._id);
         setUserName(`${profile.name} ${profile.surname}`);
       } catch (err) {
-        console.error("Errore nel fetch del profilo:", err);
-        setError("Impossibile ottenere l'ID utente.");
+        console.error(err);
+        setError("Impossibile ottenere il profilo utente.");
       }
     };
 
-    fetchUserId();
+    fetchUserData();
   }, [token]);
 
   useEffect(() => {
-    const fetchLastExperience = async () => {
-      if (!userId) return;
-
+    const fetchLastPost = async () => {
       try {
-        const res = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences`, {
+        const response = await fetch("https://striveschool-api.herokuapp.com/api/posts/", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        if (!res.ok) {
-          throw new Error("Errore nel recupero delle esperienze");
-        }
+        if (!response.ok) throw new Error("Errore nel recupero dei post");
 
-        const data = await res.json();
-        const latest = data[data.length - 1];
-        setLastExperience(latest);
+        const posts = await response.json();
+        const myPosts = posts.filter((p) => p.user._id === userId);
+        setLastPost(myPosts[myPosts.length - 1]);
       } catch (err) {
-        console.error("Errore nel recupero del post:", err);
+        console.error(err);
       }
     };
 
-    fetchLastExperience();
+    if (userId) fetchLastPost();
   }, [userId]);
 
   const handleCreatePost = async () => {
@@ -75,41 +67,30 @@ const ActivitySection = () => {
       return;
     }
 
-    const newExperience = {
-      role: postContent || "Post senza testo",
-      company: "Post personale",
-      startDate: new Date().toISOString(),
-      endDate: new Date().toISOString(),
-      description: postContent || "Nessuna descrizione",
-      area: "Italia",
-    };
-
     setLoading(true);
     setError("");
     setSuccessMessage("");
 
     try {
-      const response = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences`, {
+      const response = await fetch("https://striveschool-api.herokuapp.com/api/posts/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(newExperience),
+        body: JSON.stringify({ text: postContent || "Post senza testo" }),
       });
 
-      if (!response.ok) {
-        throw new Error("Errore nella creazione del post");
-      }
+      if (!response.ok) throw new Error("Errore nella creazione del post");
 
-      const createdExp = await response.json();
-      const expId = createdExp._id;
+      const createdPost = await response.json();
+      const postId = createdPost._id;
 
       if (selectedImage) {
         const formData = new FormData();
-        formData.append("experience", selectedImage);
+        formData.append("post", selectedImage);
 
-        const imageResponse = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences/${expId}/picture`, {
+        const imageResponse = await fetch(`https://striveschool-api.herokuapp.com/api/posts/${postId}`, {
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -117,30 +98,17 @@ const ActivitySection = () => {
           body: formData,
         });
 
-        if (!imageResponse.ok) {
-          throw new Error("Esperienza creata, ma caricamento immagine fallito.");
-        }
+        if (!imageResponse.ok) throw new Error("Post creato, ma caricamento immagine fallito.");
       }
 
-      const experiencesRes = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      if (!experiencesRes.ok) {
-        throw new Error("Esperienza creata, ma non è stato possibile recuperare i dettagli.");
-      }
-
-      const experiences = await experiencesRes.json();
-      const latest = experiences[experiences.length - 1];
-      setLastExperience(latest);
-
-      setSuccessMessage("Esperienza e immagine caricate con successo!");
+      setLastPost({ ...createdPost, image: selectedImage ? URL.createObjectURL(selectedImage) : null });
+      setSuccessMessage("Post pubblicato con successo!");
       setSelectedImage(null);
       setPostContent("");
       setShowModal(false);
     } catch (err) {
       console.error(err);
-      setError(err.message || "Errore durante la creazione del post");
+      setError(err.message || "Errore durante la pubblicazione del post");
     } finally {
       setLoading(false);
     }
@@ -164,7 +132,7 @@ const ActivitySection = () => {
                   <Button variant="outline-primary rounded-pill p-1 px-3 me-3" onClick={() => setShowModal(true)} disabled={!userId}>
                     Crea un post
                   </Button>
-                  <a href="#" className="text-dark" aria-label="Modifica la sezione Attività">
+                  <a href="#" className="text-dark">
                     <Pencil size={20} />
                   </a>
                 </div>
@@ -173,7 +141,7 @@ const ActivitySection = () => {
               {error && <div className="text-danger mb-2">{error}</div>}
               {successMessage && <div className="text-success mb-2">{successMessage}</div>}
 
-              {!lastExperience && (
+              {!lastPost && (
                 <>
                   <p className="mb-0 fw-semibold">Non hai ancora pubblicato nulla</p>
                   <small>I post che condividi appariranno qui</small>
@@ -181,28 +149,28 @@ const ActivitySection = () => {
               )}
             </Card.Body>
 
-            <Card.Footer className="text-center border-top py-2 card-footer">
+            <Card.Footer className="text-center border-top py-2">
               <a href="#" className="text-decoration-none fw-semibold text-dark">
                 Mostra tutte le attività <ArrowRight size={16} />
               </a>
             </Card.Footer>
           </Card>
 
-          {lastExperience && (
+          {lastPost && (
             <Card className="mb-2">
               <Card.Body>
                 <div className="d-flex justify-content-between">
                   <span className="fw-semibold fs-4">{userName || "Nome non disponibile"}</span>
-                  <span className="text-muted small">{new Date(lastExperience.startDate).toLocaleDateString()}</span>
+                  <span className="text-muted small">{new Date(lastPost.createdAt).toLocaleDateString()}</span>
                 </div>
 
                 <div className="mt-2">
-                  <Card.Text>{lastExperience.description}</Card.Text>
+                  <Card.Text>{lastPost.text}</Card.Text>
                 </div>
 
-                {lastExperience.image && (
+                {lastPost.image && (
                   <div className="mt-3 text-center">
-                    <img src={lastExperience.image} alt="Esperienza" style={{ maxWidth: "100%", borderRadius: "8px" }} />
+                    <img src={lastPost.image} alt="Post" style={{ maxWidth: "100%", borderRadius: "8px" }} />
                   </div>
                 )}
               </Card.Body>
