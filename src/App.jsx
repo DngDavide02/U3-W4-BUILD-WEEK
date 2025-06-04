@@ -9,7 +9,8 @@ import ActivitySection from "./components/MainContent/ActivitySection";
 import AnalyticsSection from "./components/MainContent/AnalyticsSection";
 import { Col, Container, Row } from "react-bootstrap";
 import { Routes, Route } from "react-router-dom";
-
+import MainContent from "./components/Homepage/MainContentHome";
+import RightSide from "./components/RightSide";
 function App() {
   return (
     <>
@@ -21,8 +22,14 @@ function App() {
               <MyNavBar />
               <Container className="mt-4 container">
                 <Row>
-                  <Col xs={3} className="px-2">
+                  <Col xs={2} className="px-2 d-none d-lg-block">
                     <LeftBar />
+                  </Col>
+                  <Col xs={12} lg={7} className="px-2">
+                    <MainContent />
+                  </Col>
+                  <Col xs={3} className="px-2 d-none d-lg-block">
+                    <RightSide />
                   </Col>
                 </Row>
               </Container>
@@ -36,13 +43,13 @@ function App() {
               <MyNavBar />
               <Container className="mt-4 container">
                 <Row>
-                  <Col xs={8}>
+                  <Col xs={12} lg={8}>
                     <ProfileHeader />
                     <AnalyticsSection />
                     <ActivitySection />
                     <AboutSection />
                   </Col>
-                  <Col xs={4}>
+                  <Col lg={4} className="d-none d-lg-block">
                     <MySidebar />
                   </Col>
                 </Row>
