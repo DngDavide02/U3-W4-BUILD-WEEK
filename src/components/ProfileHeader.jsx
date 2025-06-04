@@ -15,7 +15,7 @@ function MyProfileCard() {
     name: "",
     surname: "",
     title: "",
-    area: "",
+    area: ""
   });
 
   const fileInputRef = useRef(null);
@@ -25,8 +25,8 @@ function MyProfileCard() {
     try {
       const response = await fetch("https://striveschool-api.herokuapp.com/api/profile/me", {
         headers: {
-          Authorization: `Bearer ${token}`,
-        },
+          Authorization: `Bearer ${token}`
+        }
       });
 
       if (!response.ok) {
@@ -39,7 +39,7 @@ function MyProfileCard() {
         name: data.name || "",
         surname: data.surname || "",
         title: data.title || "",
-        area: data.area || "",
+        area: data.area || ""
       });
     } catch (err) {
       setError(err.message || "Errore sconosciuto");
@@ -56,7 +56,7 @@ function MyProfileCard() {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: value
     }));
   };
 
@@ -66,9 +66,9 @@ function MyProfileCard() {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(formData)
       });
 
       if (!response.ok) {
@@ -95,9 +95,9 @@ function MyProfileCard() {
       const response = await fetch("https://striveschool-api.herokuapp.com/api/profile/me/picture", {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`
         },
-        body: formData,
+        body: formData
       });
 
       if (!response.ok) {
@@ -131,7 +131,7 @@ function MyProfileCard() {
           <div
             className="card-header-image"
             style={{
-              backgroundImage: `url('https://images.unsplash.com/photo-1629904853893-c2c8981a1dc5?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`,
+              backgroundImage: `url('https://images.unsplash.com/photo-1629904853893-c2c8981a1dc5?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`
             }}
           ></div>
 
@@ -149,7 +149,7 @@ function MyProfileCard() {
                     style={{
                       width: "100%",
                       height: "100%",
-                      objectFit: "cover",
+                      objectFit: "cover"
                     }}
                   />
 
@@ -161,7 +161,7 @@ function MyProfileCard() {
                       height: "50px",
                       fontSize: "30px",
                       bottom: "0px",
-                      right: "0px",
+                      right: "0px"
                     }}
                     onClick={() => fileInputRef.current.click()}
                   >

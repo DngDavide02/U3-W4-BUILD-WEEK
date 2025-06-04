@@ -4,22 +4,26 @@ import MyNavBar from "./components/MyNavBar";
 import MySidebar from "./components/MySidebar";
 import ProfileHeader from "./components/ProfileHeader";
 import Footer from "./components/Footer";
+import { Col, Container, Row } from "react-bootstrap";
 
 function App() {
   return (
     <>
       <MyNavBar />
-      <div className="app-main-container">
-        <main className="flex-grow-1 app-main-content">
-          <ProfileHeader />
-          <MainContentSections />
-        </main>
-        <aside className="ms-4 d-none d-lg-block app-sidebar">
-          <MySidebar />
-        </aside>
-      </div>
+      <Container className="mt-4 container">
+        <Row>
+          <Col xs={9} className="px-0">
+            <ProfileHeader />
+            <MainContentSections />
+          </Col>
 
-      <Footer />
+          <Col xs={3} className="px-2">
+            <MySidebar />
+          </Col>
+
+          <Footer />
+        </Row>
+      </Container>
     </>
   );
 }

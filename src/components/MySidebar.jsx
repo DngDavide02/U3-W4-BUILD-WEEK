@@ -1,11 +1,4 @@
-import {
-  Card,
-  ListGroup,
-  Spinner,
-  Alert,
-  Image,
-  Button,
-} from "react-bootstrap";
+import { Card, ListGroup, Spinner, Alert, Image, Button } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 
 const MySidebar = () => {
@@ -17,14 +10,11 @@ const MySidebar = () => {
   useEffect(() => {
     const fetchProfiles = async () => {
       try {
-        const resp = await fetch(
-          "https://striveschool-api.herokuapp.com/api/profile/",
-          {
-            headers: {
-              Authorization: `Bearer ${import.meta.env.VITE_TOKEN}`,
-            },
+        const resp = await fetch("https://striveschool-api.herokuapp.com/api/profile/", {
+          headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_TOKEN}`
           }
-        );
+        });
         if (!resp.ok) throw new Error("Errore nel caricamento dei profili");
         const data = await resp.json();
         setProfiles(data.slice(0, 10));
@@ -38,7 +28,7 @@ const MySidebar = () => {
   }, []);
 
   return (
-    <aside className="sidebar-linkedin">
+    <aside className="">
       <Card className="mb-2 sidebar-card">
         <ListGroup variant="flush">
           <ListGroup.Item className="sidebar-link d-flex justify-content-between align-items-center">
@@ -48,10 +38,7 @@ const MySidebar = () => {
           <ListGroup.Item className="sidebar-link sidebar-link-eventi d-flex justify-content-between align-items-center">
             <span className="fw-bold">Profilo pubblico e URL</span>
             <div className="d-flex align-items-center">
-              <i
-                className="bi bi-pencil ms-2"
-                style={{ cursor: "pointer" }}
-              ></i>
+              <i className="bi bi-pencil ms-2" style={{ cursor: "pointer" }}></i>
             </div>
           </ListGroup.Item>
         </ListGroup>
@@ -78,22 +65,9 @@ const MySidebar = () => {
                 key={profile._id}
                 className="sidebar-link suggested-profile-item d-flex align-items-center"
                 style={{ cursor: "pointer" }}
-                onClick={() =>
-                  window.open(
-                    `https://striveschool-api.herokuapp.com/api/profile/${profile._id}`,
-                    "_blank",
-                    "noopener,noreferrer"
-                  )
-                }
+                onClick={() => window.open(`https://striveschool-api.herokuapp.com/api/profile/${profile._id}`, "_blank", "noopener,noreferrer")}
               >
-                <Image
-                  src={profile.image}
-                  roundedCircle
-                  width={35}
-                  height={35}
-                  className="suggested-profile-img me-2"
-                  alt={profile.name}
-                />
+                <Image src={profile.image} roundedCircle width={35} height={35} className="suggested-profile-img me-2" alt={profile.name} />
                 <div>
                   <div className="fw-bold">
                     {profile.name} {profile.surname}
