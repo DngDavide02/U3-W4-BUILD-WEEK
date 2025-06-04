@@ -1,0 +1,43 @@
+.sidebar-card .card-title {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.sidebar-card h1 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+.sidebar-card .cardDiv {
+  margin-bottom: 12px;
+}
+.spanLLast {
+  background-color: RGB(252, 227, 188);
+  border-radius: 5px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+.lastest {
+  font-weight: 600;
+
+  margin-left: 5px;
+}
+
+.rompicapo-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.footer-home {
+  padding-left: 20px;
+  text-decoration: none;
+  color: #666;
+  font-weight: 400;
+  font-size: 0.8rem;
+}
+.footer-home:hover {
+  color: #0a66c2;
+  text-decoration: underline;
+}
+li {
+  margin-bottom: 8px;
+}
