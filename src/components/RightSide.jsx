@@ -135,7 +135,7 @@ const RightSide = () => {
           </li>
         </ul>
         <div className="text-center text-muted small mt-3">
-          <img src="src\assets\linkedin.png" alt="logo" />
+          <img src="src\assets\linkedin.png" alt="logo" className="m-2" />
           LinkedIn Corporation © {new Date().getFullYear()}
         </div>
       </footer>
