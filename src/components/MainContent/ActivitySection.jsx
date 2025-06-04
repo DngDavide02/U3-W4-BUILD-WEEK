@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Card, Col, Container, Row, Form } from "react-bootstrap";
+import { Button, Card, Col, Container, Row, Form, Modal } from "react-bootstrap";
 import { ArrowRight, Pencil } from "react-bootstrap-icons";
 
 const ActivitySection = () => {
@@ -9,6 +9,8 @@ const ActivitySection = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [lastExperience, setLastExperience] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [postContent, setPostContent] = useState("");
 
   const token = import.meta.env.VITE_TOKEN;
 
@@ -36,24 +38,53 @@ const ActivitySection = () => {
     fetchUserId();
   }, [token]);
 
+  useEffect(() => {
+    const fetchLastExperience = async () => {
+      if (!userId) return;
+
+      try {
+        const res = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (!res.ok) {
+          throw new Error("Errore nel recupero delle esperienze");
+        }
+
+        const data = await res.json();
+        const latest = data[data.length - 1];
+        setLastExperience(latest);
+      } catch (err) {
+        console.error("Errore nel recupero del post:", err);
+      }
+    };
+
+    fetchLastExperience();
+  }, [userId]);
+
   const handleCreatePost = async () => {
-    if (!userId || !selectedImage) {
-      setError("Seleziona un'immagine prima di creare il post.");
+    if (!userId) {
+      setError("ID utente non disponibile.");
       return;
     }
+
+    if (!postContent.trim() && !selectedImage) {
+      setError("Scrivi qualcosa o carica un'immagine prima di pubblicare.");
+      return;
+    }
+
+    const newExperience = {
+      role: postContent || "Post senza testo",
+      company: "Post personale",
+      startDate: new Date().toISOString(),
+      endDate: new Date().toISOString(),
+      description: postContent || "Nessuna descrizione",
+      area: "Italia",
+    };
 
     setLoading(true);
     setError("");
     setSuccessMessage("");
-
-    const newExperience = {
-      role: "Frontend Developer",
-      company: "OpenAI",
-      startDate: "2023-01-01",
-      endDate: "2024-01-01",
-      description: "Ho lavorato alla creazione di interfacce utente avanzate.",
-      area: "San Francisco",
-    };
 
     try {
       const response = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences`, {
@@ -72,19 +103,21 @@ const ActivitySection = () => {
       const createdExp = await response.json();
       const expId = createdExp._id;
 
-      const formData = new FormData();
-      formData.append("experience", selectedImage);
+      if (selectedImage) {
+        const formData = new FormData();
+        formData.append("experience", selectedImage);
 
-      const imageResponse = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences/${expId}/picture`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      });
+        const imageResponse = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences/${expId}/picture`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        });
 
-      if (!imageResponse.ok) {
-        throw new Error("Esperienza creata, ma caricamento immagine fallito.");
+        if (!imageResponse.ok) {
+          throw new Error("Esperienza creata, ma caricamento immagine fallito.");
+        }
       }
 
       const experiencesRes = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences`, {
@@ -101,6 +134,8 @@ const ActivitySection = () => {
 
       setSuccessMessage("Esperienza e immagine caricate con successo!");
       setSelectedImage(null);
+      setPostContent("");
+      setShowModal(false);
     } catch (err) {
       console.error(err);
       setError(err.message || "Errore durante la creazione del post");
@@ -124,19 +159,14 @@ const ActivitySection = () => {
                 </div>
 
                 <div>
-                  <Button variant="outline-primary rounded-pill p-1 px-3 me-3" onClick={handleCreatePost} disabled={loading || !userId}>
-                    {loading ? "Caricamento..." : "Crea un post"}
+                  <Button variant="outline-primary rounded-pill p-1 px-3 me-3" onClick={() => setShowModal(true)} disabled={!userId}>
+                    Crea un post
                   </Button>
                   <a href="#" className="text-dark" aria-label="Modifica la sezione Attività">
                     <Pencil size={20} />
                   </a>
                 </div>
               </div>
-
-              <Form.Group controlId="formFile" className="mb-2">
-                <Form.Label>Carica immagine post</Form.Label>
-                <Form.Control type="file" accept="image/*" onChange={(e) => setSelectedImage(e.target.files[0])} />
-              </Form.Group>
 
               {error && <div className="text-danger mb-2">{error}</div>}
               {successMessage && <div className="text-success mb-2">{successMessage}</div>}
@@ -159,15 +189,11 @@ const ActivitySection = () => {
           {lastExperience && (
             <Card className="mb-2">
               <Card.Body>
-                <Card.Title>
-                  {lastExperience.role} @ {lastExperience.company}
-                </Card.Title>
-                <Card.Text>{lastExperience.description}</Card.Text>
                 <Card.Text>
-                  <strong>Periodo:</strong> {lastExperience.startDate.slice(0, 10)} - {lastExperience.endDate.slice(0, 10)}
+                  <strong>Contenuto:</strong> {lastExperience.description}
                 </Card.Text>
                 <Card.Text>
-                  <strong>Area:</strong> {lastExperience.area}
+                  <strong>Data:</strong> {lastExperience.startDate.slice(0, 10)}
                 </Card.Text>
                 {lastExperience.image && (
                   <div className="mt-2">
@@ -179,6 +205,30 @@ const ActivitySection = () => {
           )}
         </Col>
       </Row>
+
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Nuovo post</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Group className="mb-3">
+            <Form.Label>Contenuto del post</Form.Label>
+            <Form.Control as="textarea" rows={3} value={postContent} onChange={(e) => setPostContent(e.target.value)} placeholder="Scrivi il tuo post qui..." />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Carica un'immagine</Form.Label>
+            <Form.Control type="file" accept="image/*" onChange={(e) => setSelectedImage(e.target.files[0])} />
+          </Form.Group>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)} disabled={loading}>
+            Chiudi
+          </Button>
+          <Button variant="primary" onClick={handleCreatePost} disabled={loading}>
+            {loading ? "Pubblicazione..." : "Pubblica"}
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 };
