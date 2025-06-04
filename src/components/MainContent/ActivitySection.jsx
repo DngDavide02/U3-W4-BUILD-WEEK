@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Card, Col, Container, Row, Form, Modal } from "react-bootstrap";
-import { ArrowRight, Pencil } from "react-bootstrap-icons";
+import { ArrowRight, Pencil, Trash } from "react-bootstrap-icons";
 
 const ActivitySection = () => {
   const [userId, setUserId] = useState(null);
@@ -9,7 +9,7 @@ const ActivitySection = () => {
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
-  const [lastPost, setLastPost] = useState(null);
+  const [userPosts, setUserPosts] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [postContent, setPostContent] = useState("");
 
@@ -37,7 +37,7 @@ const ActivitySection = () => {
   }, [token]);
 
   useEffect(() => {
-    const fetchLastPost = async () => {
+    const fetchUserPosts = async () => {
       try {
         const response = await fetch("https://striveschool-api.herokuapp.com/api/posts/", {
           headers: { Authorization: `Bearer ${token}` },
@@ -47,13 +47,13 @@ const ActivitySection = () => {
 
         const posts = await response.json();
         const myPosts = posts.filter((p) => p.user._id === userId);
-        setLastPost(myPosts[myPosts.length - 1]);
+        setUserPosts(myPosts.reverse());
       } catch (err) {
         console.error(err);
       }
     };
 
-    if (userId) fetchLastPost();
+    if (userId) fetchUserPosts();
   }, [userId]);
 
   const handleCreatePost = async () => {
@@ -101,14 +101,48 @@ const ActivitySection = () => {
         if (!imageResponse.ok) throw new Error("Post creato, ma caricamento immagine fallito.");
       }
 
-      setLastPost({ ...createdPost, image: selectedImage ? URL.createObjectURL(selectedImage) : null });
       setSuccessMessage("Post pubblicato con successo!");
       setSelectedImage(null);
       setPostContent("");
       setShowModal(false);
+
+      const updatedPosts = await fetch("https://striveschool-api.herokuapp.com/api/posts/", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const posts = await updatedPosts.json();
+      const myPosts = posts.filter((p) => p.user._id === userId);
+      setUserPosts(myPosts.reverse());
     } catch (err) {
       console.error(err);
       setError(err.message || "Errore durante la pubblicazione del post");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDeletePost = async (postId) => {
+    const confirmDelete = window.confirm("Sei sicuro di voler eliminare questo post?");
+    if (!confirmDelete) return;
+
+    setLoading(true);
+    setError("");
+    setSuccessMessage("");
+
+    try {
+      const response = await fetch(`https://striveschool-api.herokuapp.com/api/posts/${postId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) throw new Error("Errore durante l'eliminazione del post");
+
+      setSuccessMessage("Post eliminato con successo.");
+      setUserPosts((prevPosts) => prevPosts.filter((p) => p._id !== postId));
+    } catch (err) {
+      console.error(err);
+      setError(err.message || "Errore durante l'eliminazione del post");
     } finally {
       setLoading(false);
     }
@@ -141,7 +175,7 @@ const ActivitySection = () => {
               {error && <div className="text-danger mb-2">{error}</div>}
               {successMessage && <div className="text-success mb-2">{successMessage}</div>}
 
-              {!lastPost && (
+              {userPosts.length === 0 && (
                 <>
                   <p className="mb-0 fw-semibold">Non hai ancora pubblicato nulla</p>
                   <small>I post che condividi appariranno qui</small>
@@ -156,26 +190,31 @@ const ActivitySection = () => {
             </Card.Footer>
           </Card>
 
-          {lastPost && (
-            <Card className="mb-2">
+          {userPosts.map((post) => (
+            <Card className="mb-2" key={post._id}>
               <Card.Body>
-                <div className="d-flex justify-content-between">
+                <div className="d-flex justify-content-between align-items-start">
                   <span className="fw-semibold fs-4">{userName || "Nome non disponibile"}</span>
-                  <span className="text-muted small">{new Date(lastPost.createdAt).toLocaleDateString()}</span>
+                  <div className="d-flex align-items-center gap-2">
+                    <span className="text-muted small">{new Date(post.createdAt).toLocaleDateString()}</span>
+                    <Button variant="outline-danger" size="sm" className="p-1" onClick={() => handleDeletePost(post._id)}>
+                      <Trash size={16} />
+                    </Button>
+                  </div>
                 </div>
 
                 <div className="mt-2">
-                  <Card.Text>{lastPost.text}</Card.Text>
+                  <Card.Text>{post.text}</Card.Text>
                 </div>
 
-                {lastPost.image && (
+                {post.image && (
                   <div className="mt-3 text-center">
-                    <img src={lastPost.image} alt="Post" style={{ maxWidth: "100%", borderRadius: "8px" }} />
+                    <img src={post.image} alt="Post" style={{ maxWidth: "100%", borderRadius: "8px" }} />
                   </div>
                 )}
               </Card.Body>
             </Card>
-          )}
+          ))}
         </Col>
       </Row>
 
