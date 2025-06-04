@@ -58,7 +58,7 @@ const RightSide = () => {
           <div className="rompicapo-row">
             <img
               src="src\assets\rompicapo.gif"
-              alt="Rompicapo di oggi"
+              alt="Rompicapo"
               style={{ width: "64px" }}
             />
             <div>
@@ -135,7 +135,7 @@ const RightSide = () => {
           </li>
         </ul>
         <div className="text-center text-muted small mt-3">
-          <img src="src\assets\linkedin.png" alt="" />
+          <img src="src\assets\linkedin.png" alt="logo" />
           LinkedIn Corporation © {new Date().getFullYear()}
         </div>
       </footer>
