@@ -11,6 +11,9 @@ import { Col, Container, Row } from "react-bootstrap";
 import { Routes, Route } from "react-router-dom";
 import MainContent from "./components/Homepage/MainContentHome";
 import RightSide from "./components/RightSide";
+import CreatePostCard from "./components/Homepage/CreatePostCard";
+import MainContentSections from "./components/MainContent/MainContentSections";
+
 function App() {
   return (
     <>
@@ -26,6 +29,7 @@ function App() {
                     <LeftBar />
                   </Col>
                   <Col xs={12} lg={7} className="px-2">
+                    <CreatePostCard token={import.meta.env.VITE_TOKEN} />
                     <MainContent />
                   </Col>
                   <Col xs={3} className="px-2 d-none d-lg-block">
@@ -45,9 +49,7 @@ function App() {
                 <Row>
                   <Col xs={12} lg={8}>
                     <ProfileHeader />
-                    <AnalyticsSection />
-                    <ActivitySection />
-                    <AboutSection />
+                    <MainContentSections />
                   </Col>
                   <Col lg={4} className="d-none d-lg-block">
                     <MySidebar />
