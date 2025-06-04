@@ -12,6 +12,7 @@ import { Routes, Route } from "react-router-dom";
 import MainContent from "./components/Homepage/MainContentHome";
 import RightSide from "./components/RightSide";
 import CreatePostCard from "./components/Homepage/CreatePostCard";
+import MainContentSections from "./components/MainContent/MainContentSections";
 
 function App() {
   return (
@@ -48,9 +49,7 @@ function App() {
                 <Row>
                   <Col xs={12} lg={8}>
                     <ProfileHeader />
-                    <AnalyticsSection />
-                    <ActivitySection />
-                    <AboutSection />
+                    <MainContentSections />
                   </Col>
                   <Col lg={4} className="d-none d-lg-block">
                     <MySidebar />
