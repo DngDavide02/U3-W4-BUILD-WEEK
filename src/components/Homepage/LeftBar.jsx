@@ -1,40 +1,51 @@
 import { Card, ListGroup, Button, Image } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { setProfile } from "../../redux/actions/userAction";
 
 const LeftBar = () => {
   const profile = useSelector((state) => state.user.profile);
+  const dispatch = useDispatch();
+  const token = import.meta.env.VITE_TOKEN;
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await fetch("https://striveschool-api.herokuapp.com/api/profile/me", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) throw new Error("Errore caricamento profilo");
+
+        const data = await response.json();
+        dispatch(setProfile(data));
+      } catch (error) {
+        console.error("Errore fetch profilo:", error);
+      }
+    };
+
+    if (!profile) {
+      fetchProfile();
+    }
+  }, [dispatch, profile]);
 
   return (
     <aside>
       <Card className="mb-2 shadow-sm">
         <Card.Body className="text-center">
           <div className="mb-2">
-            <Image
-              src={profile?.image}
-              roundedCircle
-              width={70}
-              height={70}
-              style={{ objectFit: "cover" }}
-              alt="profile"
-            />
+            <Image src={profile?.image} roundedCircle width={70} height={70} style={{ objectFit: "cover" }} alt="profile" />
           </div>
-          <Card.Title className="mb-0 fs-5">
-            {profile ? `${profile.name} ${profile.surname}` : "Nome Cognome"}
-          </Card.Title>
+          <Card.Title className="mb-0 fs-5">{profile ? `${profile.name} ${profile.surname}` : "Nome Cognome"}</Card.Title>
           <Card.Text className="text-muted mb-1" style={{ fontSize: "0.95em" }}>
             {profile?.title || "Titolo professionale"}
           </Card.Text>
           <Card.Text className="text-muted" style={{ fontSize: "0.9em" }}>
             {profile?.area || "Area"}
           </Card.Text>
-          <Button
-            as={Link}
-            to="/profile"
-            variant="outline-primary"
-            size="sm"
-            className="rounded-pill mt-2 w-100"
-          >
+          <Button as={Link} to="/profile" variant="outline-primary" size="sm" className="rounded-pill mt-2 w-100">
             Visualizza profilo
           </Button>
         </Card.Body>

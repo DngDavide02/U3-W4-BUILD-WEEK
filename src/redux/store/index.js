@@ -1,6 +1,7 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 
 const initialUserState = { profile: null };
+
 function userReducer(state = initialUserState, action) {
   switch (action.type) {
     case "SET_PROFILE":
