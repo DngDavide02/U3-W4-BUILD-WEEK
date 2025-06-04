@@ -211,25 +211,35 @@ const ActivitySection = () => {
         </Col>
       </Row>
 
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Nuovo post</Modal.Title>
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+        <Modal.Header closeButton className="border-0 pb-0">
+          <Modal.Title className="fw-semibold text-primary">Nuovo post</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <Form.Group className="mb-3">
-            <Form.Label>Contenuto del post</Form.Label>
-            <Form.Control as="textarea" rows={3} value={postContent} onChange={(e) => setPostContent(e.target.value)} placeholder="Scrivi il tuo post qui..." />
+
+        <Modal.Body className="pt-2">
+          <Form.Group className="mb-4">
+            <Form.Label className="fw-semibold">Contenuto del post</Form.Label>
+            <Form.Control
+              as="textarea"
+              rows={4}
+              value={postContent}
+              onChange={(e) => setPostContent(e.target.value)}
+              placeholder="Scrivi il tuo post qui..."
+              className="rounded-3 shadow-sm"
+            />
           </Form.Group>
+
           <Form.Group>
-            <Form.Label>Carica un'immagine</Form.Label>
-            <Form.Control type="file" accept="image/*" onChange={(e) => setSelectedImage(e.target.files[0])} />
+            <Form.Label className="fw-semibold">Carica un'immagine</Form.Label>
+            <Form.Control type="file" accept="image/*" onChange={(e) => setSelectedImage(e.target.files[0])} className="rounded-3" />
           </Form.Group>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowModal(false)} disabled={loading}>
+
+        <Modal.Footer className="border-0 pt-0">
+          <Button variant="outline-secondary" onClick={() => setShowModal(false)} className="rounded-pill px-4" disabled={loading}>
             Chiudi
           </Button>
-          <Button variant="primary" onClick={handleCreatePost} disabled={loading}>
+          <Button variant="primary" onClick={handleCreatePost} className="rounded-pill px-4" disabled={loading}>
             {loading ? "Pubblicazione..." : "Pubblica"}
           </Button>
         </Modal.Footer>
