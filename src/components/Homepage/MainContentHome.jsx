@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Card, Col, Container, Row, Spinner } from "react-bootstrap";
+import CreatePostCard from "../Homepage/CreatePostCard";
 
 const MainContent = () => {
   const [posts, setPosts] = useState([]);
@@ -22,8 +23,8 @@ const MainContent = () => {
         const data = await response.json();
         setPosts(data.reverse().slice(0, 10));
       } catch (err) {
-        console.error(err);
         setError("Impossibile caricare i post.");
+        console.log(err);
       } finally {
         setLoading(false);
       }
@@ -32,9 +33,19 @@ const MainContent = () => {
     fetchPosts();
   }, [token]);
 
+  const handleNewPost = (createdPost) => {
+    setPosts((prev) => [createdPost, ...prev]);
+  };
+
   return (
     <Container>
       <Row className="justify-content-center">
+        <Col md={12}>
+          <CreatePostCard token={token} onPostSuccess={handleNewPost} />
+        </Col>
+      </Row>
+
+      <Row className="justify-content-center mt-4">
         <Col md={12}>
           {loading && (
             <div className="text-center">
@@ -50,13 +61,13 @@ const MainContent = () => {
               <Card className="mb-3" key={post._id}>
                 <Card.Body>
                   <div className="d-flex align-items-center mb-2">
-                    <img src={post.user.image} alt={post.user.username} width={40} height={40} className="rounded-circle me-2" />
+                    <img src={post.user?.image} alt={post.user?.username} width={40} height={40} className="rounded-circle me-2" />
                     <div>
                       <strong>
-                        {post.user.name} {post.user.surname}
+                        {post.user?.name} {post.user?.surname}
                       </strong>
                       <br />
-                      <small className="text-muted">@{post.user.username}</small>
+                      <small className="text-muted">@{post.user?.username}</small>
                     </div>
                   </div>
 
