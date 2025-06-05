@@ -1,49 +1,60 @@
 import { useEffect, useState } from "react";
 import ExperienceModal from "./ExperienceModal";
-import { fetchExperience } from "../../redux/actions/experienceAction";
-import { addExperience, updateExperience } from "../../redux/reducers/experienceSlice";
-import { Button, Card, Col, Container, Row } from "react-bootstrap";
-import { Pencil, Plus } from "react-bootstrap-icons";
+import { fetchExperiences, createExperience, editExperience, deleteExperience } from "../../redux/actions/experienceAction";
+import { Alert, Button, Card, Col, Container, Image, Row, Spinner } from "react-bootstrap";
+import { Pencil, Plus, XLg } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
+import { setError } from "../../redux/reducers/experienceSlice";
 
-const ExperienceSection = ({ userId }) => {
-  const [showModal, setShowModal] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
+const ExperienceSection = () => {
+  const user = useSelector((state) => state.user.profile);
+  const userId = user?._id;
+  console.log("ExperienceSection - User Profile from Redux:", user);
+
   const [experienceToEdit, setExperienceToEdit] = useState(null);
-  // const [error, setError] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   const dispatch = useDispatch();
-  const experiences = useSelector((state) => state.experience.experiences);
+
+  const { experiences, loading, error } = useSelector((state) => state.experience);
 
   useEffect(() => {
     if (userId) {
-      dispatch(fetchExperience(userId)).finally(() => setIsLoading(false));
+      dispatch(fetchExperiences(userId));
     }
   }, [dispatch, userId]);
 
-  const handleSave = (data) => {
-    console.log("Dati salvati:", data);
+  const handleSave = (experienceData) => {
+    console.log("Dati salvati:", experienceData);
 
-    dispatch(addExperience(data));
+    dispatch(createExperience(userId, experienceData));
   };
 
-  const handleEditSave = (data) => {
-    console.log("Dati salvati:", data);
+  const handleEditSave = (experienceDataFromModal) => {
+    console.log("Dati ricevuti:", experienceDataFromModal);
 
-    dispatch(updateExperience(data));
+    const expIdToEdit = experienceDataFromModal._id; // Ora _id dovrebbe essere presente
+
+    if (userId && expIdToEdit) {
+      // <-- IL TUO CONTROLLO CHE FALLISCE
+      dispatch(editExperience(userId, expIdToEdit, experienceDataFromModal));
+    } else {
+      console.error("ERRORE in handleEditSave: userId o expIdToEdit non definiti!"); // Questo è il messaggio che vedi
+      dispatch(setError("Dati utente o esperienza mancanti per la modifica."));
+    }
   };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (!isVisible) {
-    return null;
-  }
+  const handleDelete = (expId) => {
+    if (window.confirm("Sei sicuro di voler eliminare questa esperienza?")) {
+      dispatch(deleteExperience(userId, expId));
+    }
+  };
 
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
+
+  if (loading) return <Spinner animation="border" />;
+  if (error) return <Alert variant="danger">Errore: {error}</Alert>;
 
   return (
     <Container>
@@ -63,32 +74,56 @@ const ExperienceSection = ({ userId }) => {
                     variant="link"
                     className="p-0 me-3 bg-transparent border-0 text-dark"
                     onClick={() => {
-                      handleShowModal();
                       setExperienceToEdit(null);
+                      handleShowModal();
                     }}
                   >
                     <Plus size={34} />
                   </Button>
-
-                  <Button
-                    variant="link"
-                    className="p-0 text-dark"
-                    onClick={handleShowModal}
-                    aria-label="Modifica la sezione Esperienza"
-                    onClickCapture={handleEditSave}
-                  >
-                    <Pencil size={20} />
-                  </Button>
                 </div>
               </div>
-
-              <p className="mb-0 fw-semibold">Non hai ancora aggiunto nulla su Esperienza</p>
-              <small>Le tue esperienze apparariranno qui</small>
+              {experiences && experiences.length > 0 ? (
+                experiences.map((exp) => (
+                  <div key={exp._id} className="mb-2 d-flex justify-content-between align-items-start">
+                    <div>
+                      <Image src={exp.image} width="70" />
+                      <div className="fw-semibold">{exp.role}</div>
+                      <div>{exp.company}</div>
+                      <div>
+                        {exp.startDate} - {exp.endDate || "Presente"}
+                      </div>
+                      <div>{exp.description}</div>
+                      <p>{exp.area}</p>
+                    </div>
+                    <div className="d-flex flex-column align-items-end ms-3">
+                      <Button variant="link" className="p-0 text-danger mb-1" onClick={() => handleDelete(exp._id)}>
+                        <XLg size={20} />
+                      </Button>
+                      <Button
+                        variant="link"
+                        className="p-0 text-dark"
+                        aria-label="Modifica la sezione Esperienza"
+                        onClick={() => {
+                          setExperienceToEdit(exp);
+                          handleShowModal();
+                        }}
+                      >
+                        <Pencil size={20} />
+                      </Button>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <>
+                  <p className="mb-0 fw-semibold">Non hai ancora aggiunto nulla su Esperienza</p>
+                  <small>Le tue esperienze apparariranno qui</small>
+                </>
+              )}
             </Card.Body>
           </Card>
         </Col>
       </Row>
-      <ExperienceModal show={showModal} onHide={handleCloseModal} experience={experienceToEdit} onSave={handleSave} />
+      <ExperienceModal show={showModal} onHide={handleCloseModal} experience={experienceToEdit} onSave={experienceToEdit ? handleEditSave : handleSave} />
     </Container>
   );
 };

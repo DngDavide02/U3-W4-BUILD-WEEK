@@ -11,6 +11,11 @@ function userReducer(state = initialUserState, action) {
   }
 }
 
+export const setProfile = (profile) => ({
+  type: "SET_PROFILE",
+  payload: profile
+});
+
 const rootReducer = combineReducers({
   user: userReducer,
   experience: experienceReducer
@@ -21,8 +26,3 @@ const store = configureStore({
 });
 
 export default store;
-
-export const setProfile = (profile) => ({
-  type: "SET_PROFILE",
-  payload: profile
-});

@@ -11,7 +11,7 @@ function ExperienceModal(props) {
     startMonth: experience?.startDate ? experience.startDate.split("-")[1] : "",
     startYear: experience?.startDate ? experience.startDate.split("-")[0] : "",
     endMonth: experience?.endDate ? experience.endDate.split("-")[1] : "",
-    endYear: experience?.endtDate ? experience.endDate.split("-")[0] : "",
+    endYear: experience?.endDate ? experience.endDate.split("-")[0] : "",
     description: experience ? experience.description : "",
     area: experience ? experience.area : "",
     image: experience ? experience.image || null : null
@@ -21,20 +21,22 @@ function ExperienceModal(props) {
     if (experience) {
       const [startYear, startMonth] = experience.startDate ? experience.startDate.split("-") : ["", ""];
       const [endYear, endMonth] = experience.endDate ? experience.endDate.split("-") : ["", ""];
+
       setFormData({
-        role: experience.role,
-        company: experience.company,
+        role: experience.role || "",
+        company: experience.company || "",
         startMonth,
         startYear,
         endMonth,
         endYear,
-        description: experience.description,
-        area: experience.area,
-        image: experience.image
+        description: experience.description || "",
+        area: experience.area || "",
+        image: experience.image || null
       });
     }
   }, [experience]);
 
+  // img to continue
   const [imageFile, setImageFile] = useState(null);
 
   const handleChange = (e) => {
@@ -74,7 +76,7 @@ function ExperienceModal(props) {
       alert("Tutti i campi obbligatori devono essere compilati.");
       return;
     }
-    /*  */
+
     const updatedFormData = { ...formData, image: imageFile || formData.image };
 
     onSave(updatedFormData);
@@ -148,19 +150,19 @@ function ExperienceModal(props) {
               name="startMonth"
               value={formData.startMonth}
             >
-              <option>Mese</option>
-              <option value="Gennaio">Gennaio</option>
-              <option value="Febbraio">Febbraio</option>
-              <option value="Marzo">Marzo</option>
-              <option value="Aprile">Aprile</option>
-              <option value="Maggio">Maggio</option>
-              <option value="Giugno">Giugno</option>
-              <option value="Luglio">Luglio</option>
-              <option value="Agosto">Agosto</option>
-              <option value="Settembre">Settembre</option>
-              <option value="Ottobre">Ottobre</option>
-              <option value="Novembre">Novembre</option>
-              <option value="Dicembre">Dicembre</option>
+              <option value="">Mese</option>
+              <option value="01">Gennaio</option>
+              <option value="02">Febbraio</option>
+              <option value="03">Marzo</option>
+              <option value="04">Aprile</option>
+              <option value="05">Maggio</option>
+              <option value="06">Giugno</option>
+              <option value="07">Luglio</option>
+              <option value="08">Agosto</option>
+              <option value="09">Settembre</option>
+              <option value="10">Ottobre</option>
+              <option value="11">Novembre</option>
+              <option value="12">Dicembre</option>
             </Form.Select>
             <Form.Select
               aria-label="Default select example"
@@ -171,7 +173,7 @@ function ExperienceModal(props) {
               value={formData.startYear}
               onChange={handleDateChange}
             >
-              <option>Anno</option>
+              <option value="">Anno</option>
               <option value="2025">2025</option>
               <option value="2024">2024</option>
               <option value="2023">2023</option>
@@ -193,19 +195,19 @@ function ExperienceModal(props) {
               value={formData.endMonth}
               onChange={handleDateChange}
             >
-              <option>Mese</option>
-              <option value="Gennaio">Gennaio</option>
-              <option value="Febbraio">Febbraio</option>
-              <option value="Marzo">Marzo</option>
-              <option value="Aprile">Aprile</option>
-              <option value="Maggio">Maggio</option>
-              <option value="Giugno">Giugno</option>
-              <option value="Luglio">Luglio</option>
-              <option value="Agosto">Agosto</option>
-              <option value="Settembre">Settembre</option>
-              <option value="Ottobre">Ottobre</option>
-              <option value="Novembre">Novembre</option>
-              <option value="Dicembre">Dicembre</option>
+              <option value="">Mese</option>
+              <option value="01">Gennaio</option>
+              <option value="02">Febbraio</option>
+              <option value="03">Marzo</option>
+              <option value="04">Aprile</option>
+              <option value="05">Maggio</option>
+              <option value="06">Giugno</option>
+              <option value="07">Luglio</option>
+              <option value="08">Agosto</option>
+              <option value="09">Settembre</option>
+              <option value="10">Ottobre</option>
+              <option value="11">Novembre</option>
+              <option value="12">Dicembre</option>
             </Form.Select>
             <Form.Select
               aria-label="Default select example"
@@ -216,7 +218,7 @@ function ExperienceModal(props) {
               value={formData.endYear}
               onChange={handleDateChange}
             >
-              <option>Anno</option>
+              <option value="">Anno</option>
               <option value="2025">2025</option>
               <option value="2024">2024</option>
               <option value="2023">2023</option>
@@ -240,8 +242,8 @@ function ExperienceModal(props) {
           </Form.Select>
           <Form.Label className="mb-3">Scegli un tipo di località &#40;es. da remoto&#41;</Form.Label>
           <Form.Group className="mb-3" controlId="DescriptionTextarea1">
-            <Form.Label>Descrizione</Form.Label>
-            <Form.Control as="textarea" rows={3} name="description" value={formData.description} onChange={handleChange} />
+            <Form.Label>Descrizione*</Form.Label>
+            <Form.Control as="textarea" rows={3} name="description" value={formData.description} onChange={handleChange} required />
           </Form.Group>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Sommario del profilo</Form.Label>
@@ -299,7 +301,6 @@ function ExperienceModal(props) {
             variant="primary rounded-pill"
             onClick={() => {
               handleSave();
-              onHide();
             }}
           >
             Salva
