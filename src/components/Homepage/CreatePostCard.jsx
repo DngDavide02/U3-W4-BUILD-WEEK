@@ -78,7 +78,7 @@ const CreatePostCard = ({ onPostSuccess }) => {
   };
 
   return (
-    <Card className="mb-4 p-3 shadow-sm">
+    <Card className="p-3 shadow-sm">
       <Card.Body>
         {error && <div className="text-danger mb-2 fw-semibold">{error}</div>}
         {successMessage && <div className="text-success mb-2 fw-semibold">{successMessage}</div>}
