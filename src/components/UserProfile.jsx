@@ -1,15 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Card, Spinner, Alert, Image } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Spinner,
+  Alert,
+  Image,
+  Button,
+  ListGroup,
+} from "react-bootstrap";
 
 const UserProfile = () => {
   const { userId } = useParams();
   const [profile, setProfile] = useState(null);
+  const [experiences, setExperiences] = useState([]);
+  const [education, setEducation] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const fetchProfile = async () => {
+    const fetchAll = async () => {
       try {
         const resp = await fetch(
           `https://striveschool-api.herokuapp.com/api/profile/${userId}`,
@@ -22,13 +34,39 @@ const UserProfile = () => {
         if (!resp.ok) throw new Error("Errore nel caricamento del profilo");
         const data = await resp.json();
         setProfile(data);
+
+        const expResp = await fetch(
+          `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences`,
+          {
+            headers: {
+              Authorization: `Bearer ${import.meta.env.VITE_TOKEN}`,
+            },
+          }
+        );
+        if (expResp.ok) {
+          const expData = await expResp.json();
+          setExperiences(expData);
+        }
+
+        const eduResp = await fetch(
+          `https://striveschool-api.herokuapp.com/api/profile/${userId}/education`,
+          {
+            headers: {
+              Authorization: `Bearer ${import.meta.env.VITE_TOKEN}`,
+            },
+          }
+        );
+        if (eduResp.ok) {
+          const eduData = await eduResp.json();
+          setEducation(eduData);
+        }
       } catch (err) {
         setError(err.message || "Errore sconosciuto");
       } finally {
         setLoading(false);
       }
     };
-    fetchProfile();
+    fetchAll();
   }, [userId]);
 
   if (loading)
@@ -42,24 +80,198 @@ const UserProfile = () => {
   if (!profile) return null;
 
   return (
-    <Card className="shadow-sm rounded p-4">
-      <div className="d-flex align-items-center">
-        <Image
-          src={profile.image}
-          roundedCircle
-          width={80}
-          height={80}
-          className="me-3"
-        />
-        <div>
-          <h4>
-            {profile.name} {profile.surname}
-          </h4>
-          <div className="text-muted">{profile.title}</div>
-          <div className="text-muted">{profile.area}</div>
-        </div>
-      </div>
-    </Card>
+    <Container className="mb-2">
+      <Card className="shadow-sm rounded position-relative mb-3">
+        <div
+          className="card-header-image"
+          style={{
+            backgroundImage: `url('https://images.unsplash.com/photo-1629904853893-c2c8981a1dc5?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`,
+          }}
+        ></div>
+        <Button
+          variant="light"
+          className="position-absolute top-0 end-0 m-2 p-2 shadow-sm d-flex align-items-center justify-content-center camera-button"
+          disabled
+        >
+          <i className="bi bi-camera-fill text-primary fs-5"></i>
+        </Button>
+        <Card.Body className="pt-5 px-3 px-md-4">
+          <Row>
+            <Col
+              xs={12}
+              className="text-center text-md-start pb-3 d-flex justify-content-center justify-content-md-start"
+            >
+              <div
+                style={{
+                  marginTop: "-150px",
+                  position: "relative",
+                  width: "160px",
+                  height: "160px",
+                }}
+              >
+                <Image
+                  src={profile.image}
+                  roundedCircle
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                  }}
+                />
+                <Button
+                  variant="light"
+                  className="position-absolute d-flex align-items-center justify-content-center rounded-circle shadow profile-plus-button"
+                  style={{
+                    width: "50px",
+                    height: "50px",
+                    fontSize: "30px",
+                    bottom: "0px",
+                    right: "0px",
+                  }}
+                  disabled
+                >
+                  +
+                </Button>
+              </div>
+            </Col>
+            <Col
+              xs={12}
+              md={10}
+              className="text-center text-md-start mt-3 mt-md-0"
+            >
+              <h5 className="mb-1 fs-3">
+                {profile.name} {profile.surname}
+              </h5>
+              <p className="text-muted mb-1">{profile.title}</p>
+              <p className="text-muted mb-2">
+                {profile.area} -{" "}
+                <a
+                  href="#"
+                  className="text-primary link-no-underline fw-semibold"
+                >
+                  Informazioni di contatto
+                </a>
+              </p>
+              <div className="d-flex flex-wrap flex-md-nowrap justify-content-center justify-content-md-start gap-1 overflow-auto">
+                <Button
+                  variant="outline-primary"
+                  size="sm"
+                  className="rounded-pill px-2"
+                >
+                  Disponibile per
+                </Button>
+                <Button
+                  variant="outline-primary"
+                  size="sm"
+                  className="rounded-pill px-2"
+                >
+                  Aggiungi sezione del profilo
+                </Button>
+                <Button
+                  variant="outline-primary"
+                  size="sm"
+                  className="rounded-pill px-2"
+                >
+                  Migliora profilo
+                </Button>
+                <Button
+                  variant="outline-secondary"
+                  size="sm"
+                  className="rounded-pill px-2"
+                >
+                  Risorse
+                </Button>
+              </div>
+            </Col>
+            <Col
+              xs={12}
+              md={2}
+              className="d-flex justify-content-end align-items-start mt-3 mt-md-0"
+            >
+              <Button
+                variant="outline-secondary"
+                size="sm"
+                className="edit-button"
+                disabled
+              >
+                <i className="bi bi-pencil fs-5"></i>
+              </Button>
+            </Col>
+          </Row>
+        </Card.Body>
+      </Card>
+
+      <Card className="mb-3">
+        <Card.Header>
+          <strong>Informazioni</strong>
+        </Card.Header>
+        <Card.Body>
+          <p>{profile.bio || "Nessuna informazione disponibile."}</p>
+        </Card.Body>
+      </Card>
+
+      <Card className="mb-3">
+        <Card.Header>
+          <strong>Esperienze</strong>
+        </Card.Header>
+        <ListGroup variant="flush">
+          {experiences.length === 0 && (
+            <ListGroup.Item>Nessuna esperienza disponibile.</ListGroup.Item>
+          )}
+          {experiences.map((exp) => (
+            <ListGroup.Item key={exp._id}>
+              <div className="d-flex align-items-center">
+                {exp.image && (
+                  <Image
+                    src={exp.image}
+                    rounded
+                    width={48}
+                    height={48}
+                    className="me-3"
+                    alt={exp.role}
+                  />
+                )}
+                <div>
+                  <div className="fw-bold">{exp.role}</div>
+                  <div>{exp.company}</div>
+                  <div className="text-muted" style={{ fontSize: "0.9em" }}>
+                    {exp.startDate?.slice(0, 10)} -{" "}
+                    {exp.endDate ? exp.endDate.slice(0, 10) : "Attuale"}
+                  </div>
+                  <div className="text-muted" style={{ fontSize: "0.9em" }}>
+                    {exp.area}
+                  </div>
+                  <div>{exp.description}</div>
+                </div>
+              </div>
+            </ListGroup.Item>
+          ))}
+        </ListGroup>
+      </Card>
+
+      <Card className="mb-3">
+        <Card.Header>
+          <strong>Educazione</strong>
+        </Card.Header>
+        <ListGroup variant="flush">
+          {education.length === 0 && (
+            <ListGroup.Item>Nessuna educazione disponibile.</ListGroup.Item>
+          )}
+          {education.map((edu) => (
+            <ListGroup.Item key={edu._id}>
+              <div className="fw-bold">{edu.school}</div>
+              <div>{edu.degree}</div>
+              <div className="text-muted" style={{ fontSize: "0.9em" }}>
+                {edu.startDate?.slice(0, 10)} -{" "}
+                {edu.endDate ? edu.endDate.slice(0, 10) : "Attuale"}
+              </div>
+              <div>{edu.fieldOfStudy}</div>
+              <div>{edu.description}</div>
+            </ListGroup.Item>
+          ))}
+        </ListGroup>
+      </Card>
+    </Container>
   );
 };
 
