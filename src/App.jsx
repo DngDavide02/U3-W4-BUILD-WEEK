@@ -1,18 +1,18 @@
 import "./App.css";
-import LeftBar from "./components/Homepage/LeftBar";
-import MyNavBar from "./components/MyNavBar";
-import MySidebar from "./components/MySidebar";
-import ProfileHeader from "./components/ProfileHeader";
-import Footer from "./components/Footer";
-import AboutSection from "./components/MainContent/AboutSection";
-import ActivitySection from "./components/MainContent/ActivitySection";
-import AnalyticsSection from "./components/MainContent/AnalyticsSection";
 import { Col, Container, Row } from "react-bootstrap";
 import { Routes, Route } from "react-router-dom";
+
+import MyNavBar from "./components/MyNavBar";
+import LeftBar from "./components/Homepage/LeftBar";
 import MainContent from "./components/Homepage/MainContentHome";
 import RightSide from "./components/RightSide";
-import CreatePostCard from "./components/Homepage/CreatePostCard";
+
+import ProfileHeader from "./components/ProfileHeader";
 import MainContentSections from "./components/MainContent/MainContentSections";
+import MySidebar from "./components/MySidebar";
+import Footer from "./components/Footer";
+
+import JobSearchPage from "./components/JobPage/JobSearchPage";
 
 function App() {
   return (
@@ -39,6 +39,7 @@ function App() {
             </>
           }
         />
+
         <Route
           path="/profile"
           element={
@@ -56,6 +57,16 @@ function App() {
                 </Row>
               </Container>
               <Footer />
+            </>
+          }
+        />
+
+        <Route
+          path="/jobs"
+          element={
+            <>
+              <MyNavBar />
+              <JobSearchPage />
             </>
           }
         />
