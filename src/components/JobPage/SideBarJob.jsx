@@ -13,7 +13,15 @@ const SidebarProfile = () => {
   }, [dispatch]);
 
   return (
-    <Col xs={12} className="mb-4">
+    <Col
+      xs={12}
+      className="mb-4"
+      style={{
+        position: "sticky",
+        top: "65px",
+        zIndex: 100,
+      }}
+    >
       <Card className="mb-2 shadow-sm">
         <Card.Body className="text-center">
           <div className="mb-2">
