@@ -13,6 +13,7 @@ import MainContent from "./components/Homepage/MainContentHome";
 import RightSide from "./components/RightSide";
 import CreatePostCard from "./components/Homepage/CreatePostCard";
 import MainContentSections from "./components/MainContent/MainContentSections";
+import UserProfile from "./components/UserProfile";
 
 function App() {
   return (
@@ -49,6 +50,25 @@ function App() {
                   <Col xs={12} lg={8}>
                     <ProfileHeader />
                     <MainContentSections />
+                  </Col>
+                  <Col lg={4} className="d-none d-lg-block">
+                    <MySidebar />
+                  </Col>
+                </Row>
+              </Container>
+              <Footer />
+            </>
+          }
+        />
+        <Route
+          path="/profile/:userId"
+          element={
+            <>
+              <MyNavBar />
+              <Container className="mt-4 container">
+                <Row>
+                  <Col xs={12} lg={8}>
+                    <UserProfile />
                   </Col>
                   <Col lg={4} className="d-none d-lg-block">
                     <MySidebar />
