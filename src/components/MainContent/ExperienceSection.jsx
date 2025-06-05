@@ -38,7 +38,6 @@ const ExperienceSection = () => {
     if (userId && expIdToEdit) {
       dispatch(editExperience(userId, expIdToEdit, experienceDataFromModal));
     } else {
-      console.error("ERRORE in handleEditSave");
       dispatch(setError("Dati utente o esperienza mancanti per la modifica."));
     }
   };
