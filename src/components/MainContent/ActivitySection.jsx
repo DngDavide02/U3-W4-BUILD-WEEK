@@ -197,7 +197,12 @@ const ActivitySection = () => {
                   <span className="fw-semibold fs-4">{userName || "Nome non disponibile"}</span>
                   <div className="d-flex align-items-center gap-2">
                     <span className="text-muted small">{new Date(post.createdAt).toLocaleDateString()}</span>
-                    <Button variant="outline-danger" size="sm" className="p-1" onClick={() => handleDeletePost(post._id)}>
+                    <Button
+                      variant="light"
+                      size="sm"
+                      className="rounded-circle p-2 border-0 shadow-sm text-danger d-flex align-items-center justify-content-center hover-scale"
+                      onClick={() => handleDeletePost(post._id)}
+                    >
                       <Trash size={16} />
                     </Button>
                   </div>
