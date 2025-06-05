@@ -11,6 +11,7 @@ import MainContent from "./components/Homepage/MainContentHome";
 import RightSide from "./components/RightSide";
 import MainContentSections from "./components/MainContent/MainContentSections";
 import UserProfile from "./components/UserProfile";
+import SearchResults from "./components/SearchResult";
 
 function App() {
   return (
@@ -83,6 +84,15 @@ function App() {
             <>
               <MyNavBar />
               <JobSearchPage />
+            </>
+          }
+        />
+        <Route
+          path="/search"
+          element={
+            <>
+              <MyNavBar />
+              <SearchResults />
             </>
           }
         />

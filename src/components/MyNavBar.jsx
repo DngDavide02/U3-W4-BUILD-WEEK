@@ -1,9 +1,19 @@
 import { Navbar, Nav, Form, FormControl, Container } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const MyNavBar = () => {
   const profile = useSelector((state) => state.user.profile);
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
 
   return (
     <Navbar bg="white" expand="lg" className="shadow-sm py-0 navbar-linkedin sticky-top">
@@ -11,10 +21,19 @@ const MyNavBar = () => {
         <Navbar.Brand as={Link} to="/">
           <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="40" height="40" alt="LinkedIn" />
         </Navbar.Brand>
-        <Form className="d-none d-md-flex position-relative align-items-center">
+
+        <Form className="d-none d-md-flex position-relative align-items-center" onSubmit={handleSearchSubmit}>
           <i className="bi bi-search search-icon"></i>
-          <FormControl type="search" placeholder="Cerca" className="navbar-search-input" aria-label="Search" />
+          <FormControl
+            type="search"
+            placeholder="Cerca"
+            className="navbar-search-input"
+            aria-label="Search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
         </Form>
+
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav d-flex justify-content-end">
           <Nav className="align-items-center ms-auto text-center gap-3">
@@ -50,12 +69,14 @@ const MyNavBar = () => {
             </Nav.Link>
             <Link to="/profile" className="nav-link d-flex flex-column align-items-center">
               <img src={profile?.image} alt="profile" width="28" height="28" className="rounded-circle" />
-              <div className="nav-link-label ">
+              <div className="nav-link-label">
                 <small>{profile ? `${profile.name} ${profile.surname}` : "Tu"}</small> <i className="bi bi-caret-down-fill"></i>
               </div>
             </Link>
           </Nav>
+
           <div className="vr mx-1 d-none d-lg-block nav-separator"></div>
+
           <Nav className="align-items-center">
             <Nav.Link href="#" className="text-center d-none d-lg-flex flex-column align-items-center">
               <i className="bi bi-grid-3x3-gap-fill"></i>
