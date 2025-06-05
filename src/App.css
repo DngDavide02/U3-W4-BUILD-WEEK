@@ -167,3 +167,13 @@ body {
   outline: none;
   box-shadow: none;
 }
+
+/* ExperienceModal */
+
+.custom-form-control {
+  border: 1px solid black !important;
+}
+
+.custom-form-control:hover {
+  outline: 1px solid black !important;
+}
