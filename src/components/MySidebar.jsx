@@ -7,7 +7,7 @@ import {
   Button,
 } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom"; // aggiungi questa riga
+import { Link } from "react-router-dom";
 
 const MySidebar = () => {
   const [profiles, setProfiles] = useState([]);
@@ -78,8 +78,8 @@ const MySidebar = () => {
               <ListGroup.Item
                 key={profile._id}
                 className="sidebar-link suggested-profile-item d-flex align-items-center"
-                as={Link} // usa Link come componente
-                to={`/profile/${profile._id}`} // naviga internamente
+                as={Link}
+                to={`/profile/${profile._id}`}
                 style={{
                   cursor: "pointer",
                   textDecoration: "none",
