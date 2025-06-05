@@ -105,7 +105,7 @@ body {
 .app-sidebar {
   width: 280px;
 }
-/* cards-main-sections */
+
 .card-footer {
   background-color: white !important;
   color: #404040 !important;
@@ -141,8 +141,6 @@ body {
 .card-footer:hover {
   background-color: #f3f3f3;
 }
-
-/* Tabs style Interests Section */
 
 .custom-interest-tabs .nav-link {
   border: none !important;
