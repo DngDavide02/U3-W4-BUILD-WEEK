@@ -37,7 +37,7 @@ function ExperienceModal(props) {
   }, [experience]);
 
   // img to continue
-  const [imageFile, setImageFile] = useState(null);
+  // const [imageFile, setImageFile] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -61,18 +61,18 @@ function ExperienceModal(props) {
     });
   };
 
-  const handleImageChange = (e) => {
+  /*   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
 
       setImageFile(imageUrl);
     }
-  };
+  }; */
 
-  const handleSave = () => {
+  /*   const handleSave = () => {
     console.log({ formData });
-    if (!formData.role || !formData.company || !formData.area) {
+    if (!formData.role || !formData.company || !formData.area ) {
       alert("Tutti i campi obbligatori devono essere compilati.");
       return;
     }
@@ -80,6 +80,28 @@ function ExperienceModal(props) {
     const updatedFormData = { ...formData, image: imageFile || formData.image };
 
     onSave(updatedFormData);
+    onHide();
+  }; */
+
+  const handleSave = () => {
+    if (!formData.role || !formData.company || !formData.area || !formData.description || !formData.startMonth || !formData.startYear) {
+      alert("Tutti i campi obbligatori devono essere compilati.");
+      return;
+    }
+    let dataPayload = {
+      role: formData.role,
+      company: formData.company,
+      startDate: formData.startDate,
+      endDate: formData.endDate,
+      description: formData.description,
+      area: formData.area
+    };
+
+    if (experience && experience._id) {
+      dataPayload._id = experience._id;
+    }
+
+    onSave(dataPayload);
     onHide();
   };
 
@@ -115,10 +137,10 @@ function ExperienceModal(props) {
               size="sm"
               type="text"
               placeholder="Esempio: Retail Sales Manager"
-              required
               name="role"
               value={formData.role}
               onChange={handleChange}
+              required
             />
           </Form.Group>
           <Form.Label>Tipo di impiego</Form.Label>
@@ -146,9 +168,9 @@ function ExperienceModal(props) {
               aria-label="Default select example"
               size="sm"
               className="me-1"
-              required
               name="startMonth"
               value={formData.startMonth}
+              required
             >
               <option value="">Mese</option>
               <option value="01">Gennaio</option>
@@ -168,10 +190,10 @@ function ExperienceModal(props) {
               aria-label="Default select example"
               size="sm"
               className="ms-1"
-              required
               name="startYear"
               value={formData.startYear}
               onChange={handleDateChange}
+              required
             >
               <option value="">Anno</option>
               <option value="2025">2025</option>
@@ -186,15 +208,7 @@ function ExperienceModal(props) {
           </InputGroup>
           <Form.Label>Data di fine*</Form.Label>
           <InputGroup className="mb-3">
-            <Form.Select
-              aria-label="Default select example"
-              size="sm"
-              className="me-1"
-              required
-              name="endMonth"
-              value={formData.endMonth}
-              onChange={handleDateChange}
-            >
+            <Form.Select aria-label="Default select example" size="sm" className="me-1" name="endMonth" value={formData.endMonth} onChange={handleDateChange}>
               <option value="">Mese</option>
               <option value="01">Gennaio</option>
               <option value="02">Febbraio</option>
@@ -209,15 +223,7 @@ function ExperienceModal(props) {
               <option value="11">Novembre</option>
               <option value="12">Dicembre</option>
             </Form.Select>
-            <Form.Select
-              aria-label="Default select example"
-              size="sm"
-              className="ms-1"
-              required
-              name="endYear"
-              value={formData.endYear}
-              onChange={handleDateChange}
-            >
+            <Form.Select aria-label="Default select example" size="sm" className="ms-1" name="endYear" value={formData.endYear} onChange={handleDateChange}>
               <option value="">Anno</option>
               <option value="2025">2025</option>
               <option value="2024">2024</option>
@@ -231,7 +237,7 @@ function ExperienceModal(props) {
           </InputGroup>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Località*</Form.Label>
-            <Form.Control size="sm" type="text" placeholder="Esempio: Milano, Italia" required name="area" value={formData.area} onChange={handleChange} />
+            <Form.Control size="sm" type="text" placeholder="Esempio: Milano, Italia" name="area" value={formData.area} onChange={handleChange} required />
           </Form.Group>
           <Form.Label>Tipo di località</Form.Label>
           <Form.Select aria-label="Default select example" size="sm">
@@ -287,12 +293,12 @@ function ExperienceModal(props) {
               <Button variant="outline-primary" className="me-3 rounded-pill ">
                 + Aggiungi media
               </Button>
-              {formData.image && (
+              {/* {formData.image && (
                 <div>
                   <img src={formData.image} alt="Immagine caricata" style={{ width: "100px", height: "100px", objectFit: "cover" }} />
                 </div>
               )}
-              <Form.Control type="file" name="image" onChange={handleImageChange} />
+              <Form.Control type="file" name="image" onChange={handleImageChange} /> */}
             </Form.Group>
           </div>
         </Modal.Body>
