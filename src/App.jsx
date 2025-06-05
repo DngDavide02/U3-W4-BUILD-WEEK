@@ -6,7 +6,7 @@ import ProfileHeader from "./components/ProfileHeader";
 import Footer from "./components/Footer";
 import { Col, Container, Row } from "react-bootstrap";
 import { Routes, Route } from "react-router-dom";
-
+import JobSearchPage from "./components/JobPage/JobSearchPage";
 import MainContent from "./components/Homepage/MainContentHome";
 import RightSide from "./components/RightSide";
 import MainContentSections from "./components/MainContent/MainContentSections";
@@ -74,6 +74,15 @@ function App() {
                 </Row>
               </Container>
               <Footer />
+            </>
+          }
+        />
+        <Route
+          path="/jobs"
+          element={
+            <>
+              <MyNavBar />
+              <JobSearchPage />
             </>
           }
         />
