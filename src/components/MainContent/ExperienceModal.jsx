@@ -112,7 +112,7 @@ function ExperienceModal(props) {
       </Modal.Header>
       <Form>
         <div className="d-flex align-items-center " style={{ backgroundColor: " #edf3f8", padding: "16px" }}>
-          <div>
+          <div className="mt-2">
             <h6>Informa la rete</h6>
             <p>
               Attiva l'opzione per informare la tua rete delle principali modifiche al profilo (ad esempio un nuovo lavoro) e degli anniversari lavorativi. Gli
@@ -121,6 +121,7 @@ function ExperienceModal(props) {
                 href="https://www.linkedin.com/help/linkedin/answer/a529062/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_self_add_position%3BF0GRgfBiTMG9MjkwifelQQ%3D%3D"
                 target="_blank"
                 rel="noopener noreferrer"
+                className="fw-semibold text-decoration-none"
               >
                 condivisione delle modifiche del profilo
               </a>
@@ -129,11 +130,12 @@ function ExperienceModal(props) {
           </div>
           <Form.Check type="switch" id="custom-switch" label="No" className="fs-3" />
         </div>
-        <Modal.Body>
-          <p className="">* Indica che è obbligatorio</p>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-            <Form.Label>Qualifica*</Form.Label>
+        <Modal.Body className="px-4">
+          <small className="text-mute">* Indica che è obbligatorio</small>
+          <Form.Group className="my-3" controlId="exampleForm.ControlInput1">
+            <Form.Label className="text-muted">Qualifica*</Form.Label>
             <Form.Control
+              className="custom-form-control"
               size="sm"
               type="text"
               placeholder="Esempio: Retail Sales Manager"
@@ -143,8 +145,8 @@ function ExperienceModal(props) {
               required
             />
           </Form.Group>
-          <Form.Label>Tipo di impiego</Form.Label>
-          <Form.Select aria-label="Default select example" size="sm" className="mb-3">
+          <Form.Label className="text-muted">Tipo di impiego</Form.Label>
+          <Form.Select aria-label="Default select example" size="sm" className="mb-3 custom-form-control">
             <option>Seleziona</option>
             <option value="1">A tempo pieno</option>
             <option value="2">Part-time</option>
@@ -156,18 +158,27 @@ function ExperienceModal(props) {
             <option value="8">Stagionale</option>
           </Form.Select>
           <Form.Group className="mb-4" controlId="exampleForm.ControlInput1">
-            <Form.Label>Azienda o organizzazione*</Form.Label>
-            <Form.Control size="sm" type="text" placeholder="Esempio: Microsoft" name="company" value={formData.company} onChange={handleChange} required />
+            <Form.Label className="text-muted">Azienda o organizzazione*</Form.Label>
+            <Form.Control
+              className="custom-form-control"
+              size="sm"
+              type="text"
+              placeholder="Esempio: Microsoft"
+              name="company"
+              value={formData.company}
+              onChange={handleChange}
+              required
+            />
           </Form.Group>
           <Form.Check type="checkbox" id="default-checkbox" label="Attualmente ricopro questo ruolo" className="mb-3" />
 
-          <Form.Label>Data di inizio*</Form.Label>
+          <Form.Label className="text-muted">Data di inizio*</Form.Label>
           <InputGroup className="mb-3">
             <Form.Select
               onChange={handleDateChange}
               aria-label="Default select example"
               size="sm"
-              className="me-1"
+              className="me-1 custom-form-control"
               name="startMonth"
               value={formData.startMonth}
               required
@@ -189,7 +200,7 @@ function ExperienceModal(props) {
             <Form.Select
               aria-label="Default select example"
               size="sm"
-              className="ms-1"
+              className="ms-1 custom-form-control"
               name="startYear"
               value={formData.startYear}
               onChange={handleDateChange}
@@ -206,9 +217,16 @@ function ExperienceModal(props) {
               <option value="2018">2018</option>
             </Form.Select>
           </InputGroup>
-          <Form.Label>Data di fine*</Form.Label>
+          <Form.Label className="text-muted">Data di fine*</Form.Label>
           <InputGroup className="mb-3">
-            <Form.Select aria-label="Default select example" size="sm" className="me-1" name="endMonth" value={formData.endMonth} onChange={handleDateChange}>
+            <Form.Select
+              aria-label="Default select example"
+              size="sm"
+              className="me-1 custom-form-control"
+              name="endMonth"
+              value={formData.endMonth}
+              onChange={handleDateChange}
+            >
               <option value="">Mese</option>
               <option value="01">Gennaio</option>
               <option value="02">Febbraio</option>
@@ -223,7 +241,14 @@ function ExperienceModal(props) {
               <option value="11">Novembre</option>
               <option value="12">Dicembre</option>
             </Form.Select>
-            <Form.Select aria-label="Default select example" size="sm" className="ms-1" name="endYear" value={formData.endYear} onChange={handleDateChange}>
+            <Form.Select
+              aria-label="Default select example"
+              size="sm"
+              className="ms-1 custom-form-control"
+              name="endYear"
+              value={formData.endYear}
+              onChange={handleDateChange}
+            >
               <option value="">Anno</option>
               <option value="2025">2025</option>
               <option value="2024">2024</option>
@@ -236,28 +261,45 @@ function ExperienceModal(props) {
             </Form.Select>
           </InputGroup>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-            <Form.Label>Località*</Form.Label>
-            <Form.Control size="sm" type="text" placeholder="Esempio: Milano, Italia" name="area" value={formData.area} onChange={handleChange} required />
+            <Form.Label className="text-muted">Località*</Form.Label>
+            <Form.Control
+              className="custom-form-control"
+              size="sm"
+              type="text"
+              placeholder="Esempio: Milano, Italia"
+              name="area"
+              value={formData.area}
+              onChange={handleChange}
+              required
+            />
           </Form.Group>
-          <Form.Label>Tipo di località</Form.Label>
-          <Form.Select aria-label="Default select example" size="sm">
+          <Form.Label className="text-muted">Tipo di località</Form.Label>
+          <Form.Select className="custom-form-control" aria-label="Default select example" size="sm">
             <option>Seleziona</option>
             <option value="1">In sede</option>
             <option value="2">Ibrida</option>
             <option value="3">Da remoto</option>
           </Form.Select>
-          <Form.Label className="mb-3">Scegli un tipo di località &#40;es. da remoto&#41;</Form.Label>
+          <Form.Label className="mb-3 text-muted">Scegli un tipo di località &#40;es. da remoto&#41;</Form.Label>
           <Form.Group className="mb-3" controlId="DescriptionTextarea1">
-            <Form.Label>Descrizione*</Form.Label>
-            <Form.Control as="textarea" rows={3} name="description" value={formData.description} onChange={handleChange} required />
+            <Form.Label className="text-muted">Descrizione*</Form.Label>
+            <Form.Control
+              className="custom-form-control"
+              as="textarea"
+              rows={3}
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              required
+            />
           </Form.Group>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-            <Form.Label>Sommario del profilo</Form.Label>
-            <Form.Control size="sm" type="text" placeholder="Esempio: Retail Sales Manager" />
-            <Form.Label>Compare sotto il tuo nome nella parte superiore del profilo</Form.Label>
+            <Form.Label className="text-muted">Sommario del profilo</Form.Label>
+            <Form.Control className="custom-form-control" size="sm" type="text" placeholder="Esempio: Retail Sales Manager" />
+            <Form.Label className="text-muted">Compare sotto il tuo nome nella parte superiore del profilo</Form.Label>
           </Form.Group>
-          <Form.Label>Dove hai trovato questa offerta di lavoro?</Form.Label>
-          <Form.Select aria-label="Default select example" size="sm">
+          <Form.Label className="text-muted">Dove hai trovato questa offerta di lavoro?</Form.Label>
+          <Form.Select className="custom-form-control" aria-label="Default select example" size="sm">
             <option>Seleziona</option>
             <option value="1">Linkedln</option>
             <option value="2">Sito web dell &apos;azienda</option>
@@ -268,7 +310,7 @@ function ExperienceModal(props) {
             <option value="7">Agenzia di selezione del personale</option>
             <option value="8">Altro</option>
           </Form.Select>
-          <Form.Label>Queste informazioni verranno usate per migliorare la ricerca di lavoro su LinkedIn.</Form.Label>
+          <Form.Label className="text-muted">Queste informazioni verranno usate per migliorare la ricerca di lavoro su LinkedIn.</Form.Label>
           <div className="mt-4">
             <h5>Competenze</h5>
             <p>Ti consigliamo di aggiungere le 5 competenze più utilizzate in questo ruolo. Appariranno anche nella sezione Competenze.</p>
@@ -283,7 +325,7 @@ function ExperienceModal(props) {
               <a
                 href="https://www.linkedin.com/help/linkedin/answer/a1516731?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_self_add_position%3BF0GRgfBiTMG9MjkwifelQQ%3D%3D"
                 target="_blank"
-                className="text-primary"
+                className="text-primary text-decoration-none fw-semibold"
               >
                 tipi di file multimediali supportati
               </a>
