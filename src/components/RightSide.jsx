@@ -47,62 +47,64 @@ const RightSide = () => {
         </Card.Body>
       </Card>
 
-      <Card className="mb-3  p-0">
-        <Card.Img variant="top" src="src\assets\WhoIsHiring.png" style={{ width: "100%", paddingInline: "none" }} />
-      </Card>
-      <Card className="mb-3  p-0">
-        <div className="card-body d-flex  align-items-center">
-          <div className="spanLLast">
-            <span className="spanLLast text-muted"> SUGGERIMENTO </span>
+      <div className="sticky-sidebar">
+        <Card className="mb-3  p-0">
+          <Card.Img variant="top" src="src\assets\WhoIsHiring.png" style={{ width: "100%", paddingInline: "none" }} />
+        </Card>
+        <Card className="mb-3  p-0">
+          <div className="card-body d-flex  align-items-center">
+            <div className="spanLLast">
+              <span className="spanLLast text-muted"> SUGGERIMENTO </span>
+            </div>
+            <div className="text-center text-muted lastest">Prova LinkedIn sull'app per Windows </div>
           </div>
-          <div className="text-center text-muted lastest">Prova LinkedIn sull'app per Windows </div>
-        </div>
-      </Card>
-      <footer className=" small  py-2  mb-2 text-center">
-        <ul className="list-unstyled footer-spaced-links text-muted">
-          <li>
-            <a href="#" className="footer-home">
-              Informazioni
-            </a>
-            <a href="#" className="footer-home">
-              Accessibilità
-            </a>
-          </li>
-          <li>
-            <a href="#" className="footer-home">
-              Centro assistenza
-            </a>
-            <a href="#" className="footer-home">
-              Privacy e condizioni <i className="bi bi-caret-down-fill"></i>
-            </a>
-          </li>
-          <li>
-            <a href="#" className="footer-home">
-              Opzioni per gli annunci pubblicitari
-            </a>
-          </li>
-          <li>
-            <a href="#" className="footer-home">
-              Pubblicità
-            </a>
-            <a href="#" className="footer-home">
-              Servizi alle aziende <i className="bi bi-caret-down-fill"></i>
-            </a>
-          </li>
-          <li>
-            <a href="#" className="footer-home">
-              Scarica l’app LinkedIn
-            </a>
-            <a href="#" className="footer-home">
-              Altro
-            </a>
-          </li>
-        </ul>
-        <div className="text-center text-muted small mt-3">
-          <img src="src\assets\linkedin.png" alt="logo" className="m-2" />
-          LinkedIn Corporation © {new Date().getFullYear()}
-        </div>
-      </footer>
+        </Card>
+        <footer className=" small  py-2  mb-2 text-center">
+          <ul className="list-unstyled footer-spaced-links text-muted">
+            <li>
+              <a href="#" className="footer-home">
+                Informazioni
+              </a>
+              <a href="#" className="footer-home">
+                Accessibilità
+              </a>
+            </li>
+            <li>
+              <a href="#" className="footer-home">
+                Centro assistenza
+              </a>
+              <a href="#" className="footer-home">
+                Privacy e condizioni <i className="bi bi-caret-down-fill"></i>
+              </a>
+            </li>
+            <li>
+              <a href="#" className="footer-home">
+                Opzioni per gli annunci pubblicitari
+              </a>
+            </li>
+            <li>
+              <a href="#" className="footer-home">
+                Pubblicità
+              </a>
+              <a href="#" className="footer-home">
+                Servizi alle aziende <i className="bi bi-caret-down-fill"></i>
+              </a>
+            </li>
+            <li>
+              <a href="#" className="footer-home">
+                Scarica l’app LinkedIn
+              </a>
+              <a href="#" className="footer-home">
+                Altro
+              </a>
+            </li>
+          </ul>
+          <div className="text-center text-muted small mt-3">
+            <img src="src\assets\linkedin.png" alt="logo" className="m-2" />
+            LinkedIn Corporation © {new Date().getFullYear()}
+          </div>
+        </footer>
+      </div>
     </>
   );
 };

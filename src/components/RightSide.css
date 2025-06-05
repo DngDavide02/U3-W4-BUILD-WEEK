@@ -41,3 +41,9 @@
 li {
   margin-bottom: 8px;
 }
+
+.sticky-sidebar {
+  position: sticky;
+  top: 65px;
+  z-index: 100;
+}
