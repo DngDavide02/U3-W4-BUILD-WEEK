@@ -33,7 +33,7 @@ const EducationSection = () => {
                     height: "50px"
                   }}
                 />
-                <p className="fw-semibold mb-0">EPICODE Institute of Technology</p>
+                <p className="fw-semibold mb-0 ms-2">EPICODE Institute of Technology</p>
               </div>
             </Card.Body>
           </Card>
