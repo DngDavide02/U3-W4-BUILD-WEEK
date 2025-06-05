@@ -32,13 +32,13 @@ const SearchResults = () => {
   }, [searchQuery]);
 
   return (
-    <Container className="mt-4">
+    <Container>
       <Row>
         <Col xs={12}>
           {loading && <Spinner animation="border" />}
 
           {!loading && !error && jobs.length > 0 && (
-            <Card className="mb-2 shadow-sm rounded-4">
+            <Card className="mb-2 shadow-sm rounded-2">
               <Card.Body>
                 <Card.Title className="text-dark fw-bold fs-4 mb-2">
                   Risultati per: <span className="text-primary">{searchQuery}</span>

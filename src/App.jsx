@@ -12,6 +12,7 @@ import RightSide from "./components/RightSide";
 import MainContentSections from "./components/MainContent/MainContentSections";
 import UserProfile from "./components/UserProfile";
 import SearchResults from "./components/SearchResult";
+import SideBarJob from "./components/JobPage/SideBarJob";
 
 function App() {
   return (
@@ -83,7 +84,16 @@ function App() {
           element={
             <>
               <MyNavBar />
-              <JobSearchPage />
+              <Container className="mt-4 container">
+                <Row>
+                  <Col xs={3}>
+                    <SideBarJob />
+                  </Col>
+                  <Col xs={12} lg={9}>
+                    <JobSearchPage />
+                  </Col>
+                </Row>
+              </Container>
             </>
           }
         />
@@ -92,7 +102,16 @@ function App() {
           element={
             <>
               <MyNavBar />
-              <SearchResults />
+              <Container className="mt-4 container">
+                <Row>
+                  <Col xs={3}>
+                    <SideBarJob />
+                  </Col>
+                  <Col xs={12} lg={9}>
+                    <SearchResults />
+                  </Col>
+                </Row>
+              </Container>
             </>
           }
         />
