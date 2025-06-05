@@ -9,7 +9,7 @@ import { setError } from "../../redux/reducers/experienceSlice";
 const ExperienceSection = () => {
   const user = useSelector((state) => state.user.profile);
   const userId = user?._id;
-  console.log("ExperienceSection - User Profile from Redux:", user);
+  console.log("User Profile from Redux:", user);
 
   const [experienceToEdit, setExperienceToEdit] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -33,13 +33,12 @@ const ExperienceSection = () => {
   const handleEditSave = (experienceDataFromModal) => {
     console.log("Dati ricevuti:", experienceDataFromModal);
 
-    const expIdToEdit = experienceDataFromModal._id; // Ora _id dovrebbe essere presente
+    const expIdToEdit = experienceDataFromModal._id;
 
     if (userId && expIdToEdit) {
-      // <-- IL TUO CONTROLLO CHE FALLISCE
       dispatch(editExperience(userId, expIdToEdit, experienceDataFromModal));
     } else {
-      console.error("ERRORE in handleEditSave: userId o expIdToEdit non definiti!"); // Questo è il messaggio che vedi
+      console.error("ERRORE in handleEditSave");
       dispatch(setError("Dati utente o esperienza mancanti per la modifica."));
     }
   };
