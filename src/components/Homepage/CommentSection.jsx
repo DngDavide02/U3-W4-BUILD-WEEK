@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Form, ListGroup, Spinner } from "react-bootstrap";
+import { Trash3Fill } from "react-bootstrap-icons";
 
 // Componente CommentsSection che riceve postId e token come props
 const CommentsSection = ({ postId, token }) => {
@@ -17,11 +18,12 @@ const CommentsSection = ({ postId, token }) => {
       // Chiamata API per prendere i commenti relativi al postId
       const res = await fetch(`https://striveschool-api.herokuapp.com/api/comments?elementId=${postId}`, {
         headers: {
-          Authorization: `Bearer ${token}`, // autenticazione con token
-        },
+          Authorization: `Bearer ${token}` // autenticazione con token
+        }
       });
       if (res.ok) {
         let data = await res.json(); // converto la risposta in JSON
+        console.log("COMMENTI RICEVUTI DALL'API:", data);
         data = data.filter((c) => c.elementId === postId); // filtro per sicurezza i commenti con elementId uguale a postId
         // ordino i commenti per data di creazione più recente prima
         const sortedComments = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
@@ -32,6 +34,28 @@ const CommentsSection = ({ postId, token }) => {
       console.log(err); // stampo l'errore in console
     } finally {
       setLoading(false); // indipendentemente dal risultato, setto loading a false
+    }
+  };
+
+  const handleDeleteComment = async (commentId) => {
+    if (!window.confirm("Sei sicuro di voler eliminare questo commento?")) {
+      return;
+    }
+    try {
+      const res = await fetch(`https://striveschool-api.herokuapp.com/api/comments/${commentId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      if (res.ok) {
+        alert("Commento eliminato con successo!");
+        fetchComments();
+      } else {
+        alert("Errore: non è stato possibile eliminare il commento.");
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -51,13 +75,13 @@ const CommentsSection = ({ postId, token }) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json", // specifico il tipo di contenuto
-          Authorization: `Bearer ${token}`, // autorizzazione con token
+          Authorization: `Bearer ${token}` // autorizzazione con token
         },
         body: JSON.stringify({
           comment: commentText, // testo del commento preso dallo stato
           rate: 5, // voto fisso 5 (non modificabile nel form)
-          elementId: postId, // id del post a cui è associato il commento
-        }),
+          elementId: postId // id del post a cui è associato il commento
+        })
       });
       if (res.ok) {
         setCommentText(""); // resetto il campo testo commento
@@ -84,6 +108,16 @@ const CommentsSection = ({ postId, token }) => {
               {comments.slice(0, 3).map((c) => (
                 <ListGroup.Item key={c._id}>
                   <strong>{c.author}</strong>: {c.comment}
+                  <div>
+                    <Button
+                      variant="outline-danger"
+                      size="sm"
+                      // Quando cliccato, chiama handleDeleteComment passando l'ID del commento corrente
+                      onClick={() => handleDeleteComment(c._id)}
+                    >
+                      <Trash3Fill /> {/* Icona del cestino */}
+                    </Button>
+                  </div>
                 </ListGroup.Item>
               ))}
             </ListGroup>
