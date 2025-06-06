@@ -13,6 +13,7 @@ import MainContentSections from "./components/MainContent/MainContentSections";
 import UserProfile from "./components/UserProfile";
 import SearchResults from "./components/SearchResult";
 import SideBarJob from "./components/JobPage/SideBarJob";
+import JobCard from "./components/JobPage/JobCard";
 
 function App() {
   return (
@@ -90,6 +91,7 @@ function App() {
                     <SideBarJob />
                   </Col>
                   <Col xs={12} lg={9}>
+                    <JobCard />
                     <JobSearchPage />
                   </Col>
                 </Row>
@@ -108,6 +110,7 @@ function App() {
                     <SideBarJob />
                   </Col>
                   <Col xs={12} lg={9}>
+                    <JobCard />
                     <SearchResults />
                   </Col>
                 </Row>
