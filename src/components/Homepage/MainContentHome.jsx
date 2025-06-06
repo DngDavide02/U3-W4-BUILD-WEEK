@@ -45,7 +45,7 @@ const MainContent = () => {
           <CreatePostCard token={token} onPostSuccess={handleNewPost} />
         </Col>
       </Row>
-
+      <hr />
       <Row className="justify-content-center mt-4">
         <Col md={12}>
           {loading && (

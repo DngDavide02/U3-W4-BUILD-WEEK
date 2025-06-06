@@ -54,7 +54,7 @@ const LeftBar = () => {
       <Card className="mb-2 shadow-sm">
         <ListGroup variant="flush">
           <ListGroup.Item>
-            <span className="fw-bold">Collegamenti</span>
+            <span className="fw-bold small">Collegamenti</span>
             <div className="text-muted small">Espandi la tua rete</div>
           </ListGroup.Item>
         </ListGroup>
@@ -63,8 +63,8 @@ const LeftBar = () => {
       <Card className="mb-2 shadow-sm">
         <ListGroup variant="flush">
           <ListGroup.Item>
-            <span className="fw-bold">Gruppi</span>
-            <div className="text-muted small">I tuoi gruppi LinkedIn</div>
+            <span className="text-muted small">Fai crescere la tua carriera con premium</span>
+            <div className="fw-semibold small">🟨Prova un mese a 0EUR</div>
           </ListGroup.Item>
         </ListGroup>
       </Card>
@@ -72,8 +72,18 @@ const LeftBar = () => {
       <Card className="mb-2 shadow-sm">
         <ListGroup variant="flush">
           <ListGroup.Item>
-            <span className="fw-bold">Hashtag seguiti</span>
-            <div className="text-muted small">#react #javascript</div>
+            <p className="fw-semibold small">
+              <i className="bi bi-bookmark-fill"></i> Elementi salvati
+            </p>
+            <p className="fw-semibold small">
+              <i className="bi bi-people-fill"></i> Gruppi
+            </p>
+            <p className="fw-semibold small">
+              <i className="bi bi-newspaper"></i> Newsletter
+            </p>
+            <p className="fw-semibold small">
+              <i className="bi bi-calendar-event"></i> Eventi
+            </p>
           </ListGroup.Item>
         </ListGroup>
       </Card>
