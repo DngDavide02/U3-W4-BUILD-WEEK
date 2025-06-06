@@ -87,7 +87,7 @@ function App() {
               <MyNavBar />
               <Container className="mt-4 container">
                 <Row>
-                  <Col xs={3}>
+                  <Col xs={3} className="d-none d-lg-block">
                     <SideBarJob />
                   </Col>
                   <Col xs={12} lg={9}>
@@ -106,7 +106,7 @@ function App() {
               <MyNavBar />
               <Container className="mt-4 container">
                 <Row>
-                  <Col xs={3}>
+                  <Col xs={3} className="d-none d-lg-block">
                     <SideBarJob />
                   </Col>
                   <Col xs={12} lg={9}>

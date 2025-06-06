@@ -2,7 +2,7 @@ import { Container, Row, Col, Card, Button } from "react-bootstrap";
 
 const JobCard = () => {
   return (
-    <Container className="mt-3">
+    <Container>
       <Row>
         <Col xs={12}>
           <Card className="mb-2 shadow-sm rounded-2">
