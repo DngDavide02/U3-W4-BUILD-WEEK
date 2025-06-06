@@ -36,12 +36,17 @@ const ExperienceSection = () => {
 
   // --- Gestione salvataggio modifica esperienza ---
   const handleEditSave = async (experienceDataFromModal) => {
-    if (!userId || !experienceDataFromModal._id) {
+    console.log("Dati ricevuti:", experienceDataFromModal);
+    const expIdToEdit = experienceDataFromModal._id;
+
+    if (userId && expIdToEdit) {
+      const updatedExperience = await dispatch(editExperience(userId, expIdToEdit, experienceDataFromModal));
+      console.log("Modifica completata con successo:", updatedExperience);
+      dispatch(editExperience(userId, expIdToEdit, experienceDataFromModal));
+      handleCloseModal();
+    } else {
       dispatch(setError("Dati utente o esperienza mancanti per la modifica."));
-      return;
     }
-    await dispatch(editExperience(userId, experienceDataFromModal._id, experienceDataFromModal));
-    handleCloseModal();
   };
 
   // --- Gestione cancellazione esperienza ---
