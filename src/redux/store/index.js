@@ -19,7 +19,7 @@ export const setProfile = (profile) => ({
 
 const rootReducer = combineReducers({
   user: userReducer,
-  experience: experienceReducer
+  experience: experienceReducer // state.experience.experiences / state.experience.loading / state.experience.error
 });
 
 const store = configureStore({

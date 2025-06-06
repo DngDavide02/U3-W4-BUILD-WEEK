@@ -1,3 +1,10 @@
+// Goals:
+// The user can see the experiences (GET)
+// The user can add a new experience (POST)
+// The user can edit/update an experience (PUT)
+// The user can delete an experience (DELETE)
+// All with Redux (experienceSlice.js) 👉
+
 import { useEffect, useState } from "react";
 import ExperienceModal from "./ExperienceModal";
 import { fetchExperiences, createExperience, editExperience, deleteExperience } from "../../redux/actions/experienceAction";
@@ -8,6 +15,7 @@ import { setError } from "../../redux/reducers/experienceSlice";
 import epicodeLogo from "/images/epicode-logo.jpeg";
 
 const ExperienceSection = () => {
+  // to get the user profile from redux store
   const user = useSelector((state) => state.user.profile);
   const userId = user?._id;
   console.log("User Profile from Redux:", user);
@@ -19,40 +27,47 @@ const ExperienceSection = () => {
 
   const { experiences, loading, error } = useSelector((state) => state.experience);
 
+  // to show experiences
   useEffect(() => {
     if (userId) {
       dispatch(fetchExperiences(userId));
     }
   }, [dispatch, userId]);
 
-  const handleSave = (experienceData) => {
-    console.log("Dati salvati:", experienceData);
-
-    dispatch(createExperience(userId, experienceData));
+  // to save a new experience
+  const handleSave = (newExp) => {
+    console.log("Dati salvati:", newExp);
+    // Dispatches a POST request to the API with the new experience
+    dispatch(createExperience(userId, newExp));
   };
 
+  // to edit an experience
   const handleEditSave = async (experienceDataFromModal) => {
+    // experienceDataFromModal = updatedExp = object with updated data from the form
     console.log("Dati ricevuti:", experienceDataFromModal);
 
+    // Called when editing an existing experience
+    // Sends a PUT request to update the experience in the backend
     const expIdToEdit = experienceDataFromModal._id;
 
     if (userId && expIdToEdit) {
       const updatedExperience = await dispatch(editExperience(userId, expIdToEdit, experienceDataFromModal));
-
       console.log("Modifica completata con successo:", updatedExperience);
-      handleCloseModal();
       dispatch(editExperience(userId, expIdToEdit, experienceDataFromModal));
+      handleCloseModal();
     } else {
       dispatch(setError("Dati utente o esperienza mancanti per la modifica."));
     }
   };
 
+  // to delete an experience
   const handleDelete = (expId) => {
     if (window.confirm("Sei sicuro di voler eliminare questa esperienza?")) {
       dispatch(deleteExperience(userId, expId));
     }
   };
 
+  // to format the date received from the modal
   const formatDate = (dateString) => {
     if (!dateString) {
       return "Data non specificata";
@@ -69,6 +84,7 @@ const ExperienceSection = () => {
     return date.toLocaleDateString("it-IT", options);
   };
 
+  // to show or close the modal
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
 

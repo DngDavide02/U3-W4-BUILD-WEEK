@@ -4,12 +4,13 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
 function ExperienceModal(props) {
+  //experienceToEdit, show modal, close modal, to save
   const { experience, show, onHide, onSave } = props;
   const [formData, setFormData] = useState({
     role: experience ? experience.role : "",
     company: experience ? experience.company : "",
-    startMonth: experience?.startDate ? experience.startDate.split("-")[1] : "",
-    startYear: experience?.startDate ? experience.startDate.split("-")[0] : "",
+    startMonth: experience?.startDate ? experience.startDate.split("-")[1] : "", // from "2023-09" to ["2023", "09"] ==> [1] = "09" ==> setStartMonth to "09"
+    startYear: experience?.startDate ? experience.startDate.split("-")[0] : "", // [0] = "2023" ==> set startYear to "2023"
     endMonth: experience?.endDate ? experience.endDate.split("-")[1] : "",
     endYear: experience?.endDate ? experience.endDate.split("-")[0] : "",
     description: experience ? experience.description : "",
@@ -17,6 +18,18 @@ function ExperienceModal(props) {
     image: experience ? experience.image || null : null
   });
 
+  // experience?.startDate === optional chaining ?. If experience exist and it has a prop startDate, use it.
+
+  // example startMonth:
+  /*  let startMonth = "";
+
+  if (experience && experience.startDate) {
+    startMonth = experience.startDate.split("-")[1];
+  } else {
+    startMonth = "";
+} */
+
+  // It is used to fill the form with existing data. If there is no experience, it reamins empty.
   useEffect(() => {
     if (experience) {
       const [startYear, startMonth] = experience.startDate ? experience.startDate.split("-") : ["", ""];
@@ -42,15 +55,21 @@ function ExperienceModal(props) {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
-      ...formData,
-      [name]: value
+      ...formData, // obj spread (copy what there is inside)
+      [name]: value // overwrites only the modified field
     });
   };
+
+  // example:
+  /*   const name = "role";
+     const value = "frontend";
+      [name]: value ==> role: frontend */
 
   const handleDateChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => {
       const updatedData = { ...prev, [name]: value };
+      // if startMonth and startYear are present, startDate = YYYY/MM
       if (updatedData.startMonth && updatedData.startYear) {
         updatedData.startDate = `${updatedData.startYear}/${updatedData.startMonth}`;
       }
@@ -58,6 +77,7 @@ function ExperienceModal(props) {
         updatedData.endDate = `${updatedData.endYear}/${updatedData.endMonth}`;
       }
       return updatedData;
+      // return startDate: "2023/05"
     });
   };
 
@@ -88,6 +108,7 @@ function ExperienceModal(props) {
       alert("Tutti i campi obbligatori devono essere compilati.");
       return;
     }
+    // create the obj to send
     let dataPayload = {
       role: formData.role,
       company: formData.company,
@@ -97,10 +118,11 @@ function ExperienceModal(props) {
       area: formData.area
     };
 
+    // if this is an edit, it adds the experience _id
     if (experience && experience._id) {
       dataPayload._id = experience._id;
     }
-
+    // Pass data to the parent component via the onSave function (POST or PUT)
     onSave(dataPayload);
     onHide();
   };
