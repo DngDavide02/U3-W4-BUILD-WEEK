@@ -3,40 +3,46 @@ import { useEffect, useState } from "react";
 import { Container, Row, Col, Spinner, Card, ListGroup } from "react-bootstrap";
 
 const SearchResults = () => {
+  // Prendo la query dalla URL (es. ?q=developer)
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const searchQuery = queryParams.get("q");
 
+  // Stato per i lavori, loading e eventuali errori
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  // Effetto che si attiva ad ogni cambio di searchQuery per fare la chiamata API
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        setLoading(true);
-        setError("");
+        setLoading(true); // Attivo spinner loading
+        setError(""); // Reset errore precedente
 
+        // Chiamata all'API con filtro search e limit 10 risultati
         const response = await fetch(`https://strive-benchmark.herokuapp.com/api/jobs?search=${searchQuery}&limit=10`);
         const data = await response.json();
-        setJobs(data.data);
+        setJobs(data.data); // Salvo i risultati nel state
       } catch (err) {
-        setError("Errore durante il caricamento");
+        setError("Errore durante il caricamento"); // Gestione errore
         console.log(err);
       } finally {
-        setLoading(false);
+        setLoading(false); // Disattivo spinner loading
       }
     };
 
-    if (searchQuery) fetchJobs();
+    if (searchQuery) fetchJobs(); // Se esiste la query, eseguo fetch
   }, [searchQuery]);
 
   return (
     <Container>
       <Row>
         <Col xs={12}>
+          {/* Spinner durante il caricamento */}
           {loading && <Spinner animation="border" />}
 
+          {/* Lista risultati se caricamento finito, nessun errore e ci sono lavori */}
           {!loading && !error && jobs.length > 0 && (
             <Card className="mb-2 shadow-sm rounded-2">
               <Card.Body>
@@ -45,13 +51,14 @@ const SearchResults = () => {
                 </Card.Title>
                 <Card.Text className="text-muted">Offerte di lavoro trovate in base alla tua ricerca</Card.Text>
 
+                {/* Lista lavori */}
                 <ListGroup variant="flush" className="text-start">
                   {jobs.map((job) => (
                     <ListGroup.Item
                       key={job._id}
                       className="py-3 px-2 border-bottom border-light list-job-item"
                       style={{ transition: "background 0.2s" }}
-                      onClick={() => window.open(job.url, "_blank")}
+                      onClick={() => window.open(job.url, "_blank")} // Apri link in nuova scheda
                     >
                       <div className="d-flex justify-content-between align-items-start">
                         <div>
@@ -70,16 +77,19 @@ const SearchResults = () => {
             </Card>
           )}
 
+          {/* Messaggio se non ci sono risultati */}
           {!loading && !error && jobs.length === 0 && (
             <p className="text-center mt-4">
               Nessun risultato trovato per: <strong>{searchQuery}</strong>
             </p>
           )}
 
+          {/* Messaggio errore */}
           {error && <p className="text-danger">{error}</p>}
         </Col>
       </Row>
 
+      {/* Stile per hover degli elementi lista */}
       <style>{`
         .list-job-item:hover {
           background-color: #f8f9fa;

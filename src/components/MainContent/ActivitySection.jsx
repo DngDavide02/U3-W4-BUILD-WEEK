@@ -4,6 +4,7 @@ import { ArrowRight, Pencil, Trash } from "react-bootstrap-icons";
 import CommentsSection from "../Homepage/CommentSection";
 
 const ActivitySection = () => {
+  // Stati per gestione dati utente, post, errori, caricamenti, modale ecc.
   const [userId, setUserId] = useState(null);
   const [userName, setUserName] = useState("");
   const [loading, setLoading] = useState(false);
@@ -16,6 +17,7 @@ const ActivitySection = () => {
 
   const token = import.meta.env.VITE_TOKEN;
 
+  // Effettua fetch del profilo utente alla prima render per ottenere id e nome
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -37,6 +39,7 @@ const ActivitySection = () => {
     fetchUserData();
   }, [token]);
 
+  // Quando abbiamo l'userId, fetch dei post di quell'utente
   useEffect(() => {
     const fetchUserPosts = async () => {
       try {
@@ -47,6 +50,7 @@ const ActivitySection = () => {
         if (!response.ok) throw new Error("Errore nel recupero dei post");
 
         const posts = await response.json();
+        // Filtra solo i post creati dall'utente corrente e inverti ordine (più recenti prima)
         const myPosts = posts.filter((p) => p.user._id === userId);
         setUserPosts(myPosts.reverse());
       } catch (err) {
@@ -57,6 +61,7 @@ const ActivitySection = () => {
     if (userId) fetchUserPosts();
   }, [userId]);
 
+  // Funzione per creare un nuovo post, anche con immagine opzionale
   const handleCreatePost = async () => {
     if (!userId) {
       setError("ID utente non disponibile.");
@@ -73,6 +78,7 @@ const ActivitySection = () => {
     setSuccessMessage("");
 
     try {
+      // 1. Creo il post con testo (o testo di fallback)
       const response = await fetch("https://striveschool-api.herokuapp.com/api/posts/", {
         method: "POST",
         headers: {
@@ -87,6 +93,7 @@ const ActivitySection = () => {
       const createdPost = await response.json();
       const postId = createdPost._id;
 
+      // 2. Se c'è immagine, caricala in un secondo momento tramite FormData
       if (selectedImage) {
         const formData = new FormData();
         formData.append("post", selectedImage);
@@ -102,11 +109,13 @@ const ActivitySection = () => {
         if (!imageResponse.ok) throw new Error("Post creato, ma caricamento immagine fallito.");
       }
 
+      // Reset campi e messaggi
       setSuccessMessage("Post pubblicato con successo!");
       setSelectedImage(null);
       setPostContent("");
       setShowModal(false);
 
+      // Aggiorna lista post utente
       const updatedPosts = await fetch("https://striveschool-api.herokuapp.com/api/posts/", {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -121,6 +130,7 @@ const ActivitySection = () => {
     }
   };
 
+  // Funzione per eliminare un post, con conferma e aggiornamento lista post locale
   const handleDeletePost = async (postId) => {
     const confirmDelete = window.confirm("Sei sicuro di voler eliminare questo post?");
     if (!confirmDelete) return;
@@ -153,6 +163,7 @@ const ActivitySection = () => {
     <Container>
       <Row>
         <Col>
+          {/* Card header attività con bottone per creare post */}
           <Card className="mb-2 px-2">
             <Card.Body>
               <div className="d-flex justify-content-between mb-2">
@@ -173,9 +184,11 @@ const ActivitySection = () => {
                 </div>
               </div>
 
+              {/* Messaggi di errore o successo */}
               {error && <div className="text-danger mb-2">{error}</div>}
               {successMessage && <div className="text-success mb-2">{successMessage}</div>}
 
+              {/* Messaggio se nessun post */}
               {userPosts.length === 0 && (
                 <>
                   <p className="mb-0 fw-semibold">Non hai ancora pubblicato nulla</p>
@@ -191,6 +204,7 @@ const ActivitySection = () => {
             </Card.Footer>
           </Card>
 
+          {/* Lista dei post utente */}
           {userPosts.map((post) => (
             <Card className="mb-2" key={post._id}>
               <Card.Body>
@@ -213,18 +227,21 @@ const ActivitySection = () => {
                   <Card.Text>{post.text}</Card.Text>
                 </div>
 
+                {/* Immagine del post se presente */}
                 {post.image && (
                   <div className="mt-3 text-center">
                     <img src={post.image} alt="Post" style={{ maxWidth: "100%", borderRadius: "8px" }} />
                   </div>
                 )}
               </Card.Body>
+              {/* Sezione commenti post */}
               <CommentsSection postId={post._id} token={token} />
             </Card>
           ))}
         </Col>
       </Row>
 
+      {/* Modale per creare un nuovo post */}
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header closeButton className="border-0 pb-0">
           <Modal.Title className="fw-semibold text-primary">Nuovo post</Modal.Title>
