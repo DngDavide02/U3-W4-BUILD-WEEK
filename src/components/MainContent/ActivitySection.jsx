@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Card, Col, Container, Row, Form, Modal } from "react-bootstrap";
 import { ArrowRight, Pencil, Trash } from "react-bootstrap-icons";
+import CommentsSection from "../Homepage/CommentSection";
 
 const ActivitySection = () => {
   const [userId, setUserId] = useState(null);
@@ -218,6 +219,7 @@ const ActivitySection = () => {
                   </div>
                 )}
               </Card.Body>
+              <CommentsSection postId={post._id} token={token} />
             </Card>
           ))}
         </Col>

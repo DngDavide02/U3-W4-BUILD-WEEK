@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Card, Col, Container, Row, Spinner } from "react-bootstrap";
 import CreatePostCard from "../Homepage/CreatePostCard";
+import CommentsSection from "../Homepage/CommentSection";
 
 const MainContent = () => {
   const [posts, setPosts] = useState([]);
@@ -81,6 +82,8 @@ const MainContent = () => {
                 </Card.Body>
 
                 <Card.Footer className="text-muted small">Pubblicato il {new Date(post.createdAt).toLocaleString()}</Card.Footer>
+
+                <CommentsSection postId={post._id} token={token} />
               </Card>
             ))}
         </Col>
